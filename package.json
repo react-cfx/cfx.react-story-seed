@@ -1,0 +1,61 @@
+{
+  "name": "cfx.react-story-seed",
+  "description": "CFX react-story-seed",
+  "author": ":FooTearth <footearth@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mooxe000/cfx.react-story-seed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mooxe000/cfx.react-story-seed/issues"
+  },
+  "scripts": {
+    "storybook:clean": "rimraf .storybook",
+    "storybook:conf": "coffee -b -o .storybook ./storybook/config",
+    "storybook:start": "start-storybook -p 9001",
+    "storybook:restart": "npm run storybook:clean; npm run storybook:conf; npm run storybook:start",
+    "dev": "webpack-dev-server --inline --hot --content-base dist --config webpack/dev.conf.coffee"
+  },
+  "dependencies": {
+    "antd": "^1.2.1",
+    "classnames": "^2.2.5",
+    "radium": "^0.17.1",
+    "react": "^15.1.0",
+    "react-css-modules": "^3.7.6",
+    "react-document-title": "^2.0.1",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1",
+    "todomvc-app-css": "^2.0.6"
+  },
+  "_devDependencies": {},
+  "devDependencies": {
+    "@kadira/storybook": "^1.1.0",
+    "@kadira/storybook-deployer": "^1.0.0",
+    "build-module-task": "0.0.2",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.10.0",
+    "cson": "^3.0.2",
+    "css-loader": "^0.23.1",
+    "ddeyes": "0.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.18.0",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
+    "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "lodash": "^4.13.1",
+    "raw-loader": "^0.5.1",
+    "react-hot-loader": "^1.3.0",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.0",
+    "template-html-loader": "0.0.3",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
