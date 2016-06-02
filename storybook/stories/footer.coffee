@@ -1,5 +1,5 @@
 RW = require 'react'
-Footer = require '../../src/components/Footer'
+Footer = require '../../src/components/Footer.coffee'
 {
   storiesOf
   action
@@ -17,7 +17,7 @@ Footer = require '../../src/components/Footer'
   RW.createElement 'div'
   , className: 'todoapp'
   ,
-    RW.createElement Footer.default
+    RW.createElement Footer
     ,
       completedCount: 10
       activeCount: 4
@@ -30,7 +30,7 @@ Footer = require '../../src/components/Footer'
   RW.createElement 'div'
   , className: 'todoapp'
   ,
-    RW.createElement Footer.default
+    RW.createElement Footer
     ,
       completedCount: 10
       activeCount: 4
@@ -43,7 +43,7 @@ Footer = require '../../src/components/Footer'
   RW.createElement 'div'
   , className: 'todoapp'
   ,
-    RW.createElement Footer.default
+    RW.createElement Footer
     ,
       completedCount: 10
       activeCount: 4

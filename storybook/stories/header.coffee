@@ -1,5 +1,5 @@
 RW = require 'react'
-Header = require '../../src/components/Header'
+Header = require '../../src/components/Header.coffee'
 {
   storiesOf
   action
@@ -13,5 +13,5 @@ Header = require '../../src/components/Header'
   , className: 'todoapp'
 
   ,
-    RW.createElement Header.default
+    RW.createElement Header
     , addTodo: action 'Add Todo'
