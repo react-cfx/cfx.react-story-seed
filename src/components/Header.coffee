@@ -2,7 +2,7 @@
   PropTypes
   Component
 } = RW = require 'react'
-TodoTextInput = require './TodoTextInput'
+TodoTextInput = require './TodoTextInput.coffee'
 
 class Header extends Component
 
@@ -17,7 +17,7 @@ class Header extends Component
       , {}
       , 'todos'
     ,
-      RW.createElement TodoTextInput.default
+      RW.createElement TodoTextInput
       ,
         newTodo: true
         onSave: @handleSave.bind @
