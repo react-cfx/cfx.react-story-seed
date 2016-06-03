@@ -1,5 +1,5 @@
 RW = require 'react'
-MainSection = require '../../src/components/MainSection'
+MainSection = require '../../src/components/MainSection.coffee'
 {
   storiesOf
   action
@@ -14,7 +14,7 @@ getMainSection = (todos) ->
   RW.createElement 'div'
   , className: 'todoapp'
   ,
-    RW.createElement MainSection.default
+    RW.createElement MainSection
     , {
       todos
       actions
