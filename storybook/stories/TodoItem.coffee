@@ -1,5 +1,5 @@
 RW = require 'react';
-TodoItem = require '../../src/components/TodoItem'
+TodoItem = require '../../src/components/TodoItem.coffee'
 {
   storiesOf
   action
@@ -15,7 +15,7 @@ getItem = (todo) ->
     , className: 'todo-list'
 
     ,
-      RW.createElement TodoItem.default
+      RW.createElement TodoItem
       ,
         todo: todo
         editTodo: action 'editTodo'
