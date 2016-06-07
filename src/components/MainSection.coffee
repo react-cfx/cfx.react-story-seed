@@ -1,7 +1,14 @@
 {
   PropTypes
-  Component
-} = RW = require 'react'
+  classnames
+  cfx
+  Comps
+} = require 'cfx.rw'
+{
+  input
+  section
+  ul
+} = Comps
 TodoItem = require './TodoItem.coffee'
 Footer = require './Footer.coffee'
 {
@@ -15,10 +22,9 @@ TODO_FILTERS[SHOW_ALL] = -> true
 TODO_FILTERS[SHOW_ACTIVE] = (todo) -> not todo.completed
 TODO_FILTERS[SHOW_COMPLETED] = (todo) -> todo.completed
 
-class MainSection extends Component
+MainSection = cfx
 
   constructor: (props, context) ->
-    super props, context
     @state = filter: SHOW_ALL
 
   handleClearCompleted: ->
@@ -35,8 +41,7 @@ class MainSection extends Component
 
     if todos.length > 0
 
-      RW.createElement 'input'
-      ,
+      input
         className: 'toggle-all'
         type: 'checkbox'
         checked: completedCount is todos.length
@@ -48,8 +53,7 @@ class MainSection extends Component
     activeCount = todos.length - completedCount
 
     if todos.length
-      RW.createElement Footer
-      , {
+      Footer {
         completedCount
         activeCount
         filter
@@ -69,33 +73,23 @@ class MainSection extends Component
       if todo.completed then count + 1 else count
     , 0
 
-    console.log {
-      filteredTodos
-      completedCount
-    }
+    # console.log {
+    #   filteredTodos
+    #   completedCount
+    # }
 
-    RW.createElement 'section'
-    , className: 'main'
+    section className: 'main'
     ,
       @renderToggleAll completedCount
     ,
-      RW.createElement.apply @
+      ul className: 'todo-list'
       ,
-        filteredTodos.reduce (result, todo) ->
-          result.push (
-            RW.createElement TodoItem
-            ,
-              Object.assign {}
-              ,
-                key: todo.id
-                todo: todo
-              , actions
-          )
-          result
-        , [
-          'ul'
-          className: 'todo-list'
-        ]
+        for todo in filteredTodos
+          TodoItem Object.assign {}
+          ,
+            key: todo.id
+            todo: todo
+          , actions
     , @renderFooter completedCount
 
 MainSection.propTypes =

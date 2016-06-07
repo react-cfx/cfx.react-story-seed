@@ -1,13 +1,14 @@
 {
   PropTypes
-  Component
-} = RW = require 'react'
-classnames = require 'classnames'
+  classnames
+  cfx
+  Comps
+} = require 'cfx.rw'
+{ input } = Comps
 
-class TodoTextInput extends Component
+TodoTextInput = cfx
 
   constructor: (props, context) ->
-    super props, context
     this.state =
       text: @props.text or ''
 
@@ -26,8 +27,7 @@ class TodoTextInput extends Component
     @props.onSave e.target.value unless @props.newTodo
 
   render: ->
-    RW.createElement 'input'
-    ,
+    input
       className: classnames
         edit: @props.editing
         'new-todo': @props.newTodo

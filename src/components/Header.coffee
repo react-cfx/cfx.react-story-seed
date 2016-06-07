@@ -1,24 +1,29 @@
 {
   PropTypes
-  Component
-} = RW = require 'react'
+  classnames
+  cfx
+  Comps
+} = require 'cfx.rw'
+
+{
+  header
+  h1
+} = Comps
+
 TodoTextInput = require './TodoTextInput.coffee'
 
-class Header extends Component
+Header = cfx
 
   handleSave: (text) ->
     @props.addTodo text unless text.length is 0
 
   render: ->
-    RW.createElement 'header'
-    , className: 'header'
+    header className: 'header'
     ,
-      RW.createElement 'h1'
-      , {}
+      h1 {}
       , 'todos'
     ,
-      RW.createElement TodoTextInput
-      ,
+      TodoTextInput
         newTodo: true
         onSave: @handleSave.bind @
         placeholder: 'What needs to be done?'
@@ -26,4 +31,4 @@ class Header extends Component
 Header.propTypes =
   addTodo: PropTypes.func.isRequired
 
-module.exports = Header;
+module.exports = Header

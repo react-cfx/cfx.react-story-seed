@@ -1,8 +1,18 @@
 {
   PropTypes
-  Component
-} = RW = require 'react'
-classnames = require 'classnames'
+  classnames
+  cfx
+  Comps
+} = require 'cfx.rw'
+{
+  span
+  footer
+  ul
+  li
+  a
+  strong
+  button
+} = Comps
 {
   SHOW_ALL
   SHOW_COMPLETED
@@ -14,23 +24,23 @@ FILTER_TITLES[SHOW_ALL] = 'All'
 FILTER_TITLES[SHOW_ACTIVE] = 'Active'
 FILTER_TITLES[SHOW_COMPLETED] = 'Completed'
 
-class Footer extends Component
+Footer = cfx
 
   renderTodoCount: ->
 
     { activeCount } = @props
-    itemWord = if activeCount is 1 then 'item' else 'items'
+    itemWord =
+      if activeCount is 1
+      then 'item'
+      else 'items'
 
-    RW.createElement 'span'
-    , className: 'todo-count'
+    span className: 'todo-count'
     ,
-      RW.createElement 'span'
-      , className: 'todo-count'
+      span className: 'todo-count'
       ,
-        RW.createElement 'strong'
-        , {}
+        strong {}
         , activeCount or 'No'
-      , "#{itemWord} left"
+      , " #{itemWord} left"
 
   renderFilterLink: (filter) ->
     title = FILTER_TITLES[filter]
@@ -39,11 +49,9 @@ class Footer extends Component
       onShow
     } = @props
 
-    RW.createElement 'li'
-    , key: filter
+    li key: filter
     ,
-      RW.createElement 'a'
-      ,
+      a
         className: classnames(
           selected: filter is selectedFilter
         )
@@ -59,36 +67,24 @@ class Footer extends Component
     } = @props
     if completedCount > 0
 
-      RW.createElement 'button'
-      ,
+      button
         className: 'clear-completed'
         onClick: onClearCompleted
       , 'Clear completed'
 
   render: ->
 
-    RW.createElement 'footer'
-    , className: 'footer'
+    footer className: 'footer'
     , @renderTodoCount()
     ,
-      RW.createElement.apply @
+      ul className: 'filters'
       ,
-        [
+        for filter in [
           SHOW_ALL
           SHOW_ACTIVE
           SHOW_COMPLETED
         ]
-        .reduce(
-          (
-            (result, filter, index, array) ->
-              result.push @renderFilterLink filter
-              result
-          ).bind @
-          [
-            'ul'
-            className: 'filters'
-          ]
-        )
+          @renderFilterLink filter
 
     , @renderClearButton()
 

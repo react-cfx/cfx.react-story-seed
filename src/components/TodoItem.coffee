@@ -1,14 +1,23 @@
 {
   PropTypes
-  Component
-} = RW = require 'react'
-classnames = require 'classnames'
+  classnames
+  cfx
+  Comps
+} = require 'cfx.rw'
+
+{
+  div
+  input
+  label
+  button
+  li
+} = Comps
+
 TodoTextInput = require './TodoTextInput.coffee'
 
-class TodoItem extends Component
+TodoItem = cfx
 
   constructor: (props, context) ->
-    super props, context
     @state = editing: false
 
   handleDoubleClick: ->
@@ -31,36 +40,30 @@ class TodoItem extends Component
     element =
       if @state.editing
       then (
-        RW.createElement TodoTextInput
-        ,
+        TodoTextInput
           text: todo.text
           editing: @state.editing
           onSave: @handleSave.bind @, todo.id, todo.text
       )
       else (
-        RW.createElement 'div'
-        , className: 'view'
+        div className: 'view'
         ,
-          RW.createElement 'input'
-          ,
+          input
             className: 'toggle'
             type: 'checkbox'
             checked: todo.completed
             onChange: -> completeTodo todo.id
         ,
-          RW.createElement 'label'
-          ,
+          label
             onDoubleClick: @handleDoubleClick.bind @
           , todo.text
         ,
-          RW.createElement 'button'
-          ,
+          button
             className: 'destroy'
             onClick: -> deleteTodo todo.id
       )
 
-    RW.createElement 'li'
-    ,
+    li
       className: classnames
         completed: todo.completed
         editing: @state.editing
