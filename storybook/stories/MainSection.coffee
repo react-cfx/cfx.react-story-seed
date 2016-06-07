@@ -1,4 +1,5 @@
-RW = require 'react'
+{ Comps } = require 'cfx.rw'
+{ div } = Comps
 MainSection = require '../../src/components/MainSection.coffee'
 {
   storiesOf
@@ -11,11 +12,9 @@ getMainSection = (todos) ->
     clearCompleted: action 'clearCompleted'
     completeAll: action 'completeAll'
 
-  RW.createElement 'div'
-  , className: 'todoapp'
+  div className: 'todoapp'
   ,
-    RW.createElement MainSection
-    , {
+    MainSection {
       todos
       actions
     }

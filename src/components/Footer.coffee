@@ -36,11 +36,9 @@ Footer = cfx
 
     span className: 'todo-count'
     ,
-      span className: 'todo-count'
-      ,
-        strong {}
-        , activeCount or 'No'
-      , " #{itemWord} left"
+      strong {}
+      , activeCount or 'No'
+    , " #{itemWord} left"
 
   renderFilterLink: (filter) ->
     title = FILTER_TITLES[filter]

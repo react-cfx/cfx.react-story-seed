@@ -1,4 +1,5 @@
-RW = require 'react';
+{ Comps } = require 'cfx.rw'
+{ div } = Comps
 TodoItem = require '../../src/components/TodoItem.coffee'
 {
   storiesOf
@@ -7,16 +8,13 @@ TodoItem = require '../../src/components/TodoItem.coffee'
 
 getItem = (todo) ->
 
-  RW.createElement 'div'
-  , className: 'todoapp'
+  div className: 'todoapp'
 
   ,
-    RW.createElement 'div'
-    , className: 'todo-list'
+    div className: 'todo-list'
 
     ,
-      RW.createElement TodoItem
-      ,
+      TodoItem
         todo: todo
         editTodo: action 'editTodo'
         deleteTodo: action 'deleteTodo'

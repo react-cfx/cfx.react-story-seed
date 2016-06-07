@@ -1,4 +1,5 @@
-RW = require 'react'
+{ Comps } = require 'cfx.rw'
+{ div } = Comps
 Header = require '../../src/components/Header.coffee'
 {
   storiesOf
@@ -9,9 +10,6 @@ Header = require '../../src/components/Header.coffee'
 
 .add 'default view', ->
 
-  RW.createElement 'div'
-  , className: 'todoapp'
-
+  div className: 'todoapp'
   ,
-    RW.createElement Header
-    , addTodo: action 'Add Todo'
+    Header addTodo: action 'Add Todo'

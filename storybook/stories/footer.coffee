@@ -1,4 +1,5 @@
-RW = require 'react'
+{ Comps } = require 'cfx.rw'
+{ div } = Comps
 Footer = require '../../src/components/Footer.coffee'
 {
   storiesOf
@@ -14,11 +15,9 @@ Footer = require '../../src/components/Footer.coffee'
 
 .add 'default view', ->
 
-  RW.createElement 'div'
-  , className: 'todoapp'
+  div className: 'todoapp'
   ,
-    RW.createElement Footer
-    ,
+    Footer
       completedCount: 10
       activeCount: 4
       filter: SHOW_ALL
@@ -27,11 +26,9 @@ Footer = require '../../src/components/Footer.coffee'
 
 .add 'show completed', ->
 
-  RW.createElement 'div'
-  , className: 'todoapp'
+  div className: 'todoapp'
   ,
-    RW.createElement Footer
-    ,
+    Footer
       completedCount: 10
       activeCount: 4
       filter: SHOW_COMPLETED
@@ -40,11 +37,9 @@ Footer = require '../../src/components/Footer.coffee'
 
 .add 'show active', ->
 
-  RW.createElement 'div'
-  , className: 'todoapp'
+  div className: 'todoapp'
   ,
-    RW.createElement Footer
-    ,
+    Footer
       completedCount: 10
       activeCount: 4
       filter: SHOW_ACTIVE
