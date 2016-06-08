@@ -5,11 +5,13 @@ Footer = require '../../src/components/Footer.coffee'
   storiesOf
   action
 } = require '@kadira/storybook'
+
+constants = require '../../src/constants/Visibility.coffee'
 {
-  SHOW_ALL
-  SHOW_COMPLETED
-  SHOW_ACTIVE
-} = require '../../src/constants/TodoFilters'
+  SHOW_TODO_ALL
+  SHOW_TODO_ACTIVE
+  SHOW_TODO_COMPLETED
+} = constants.types
 
 (storiesOf 'Footer', module)
 
@@ -20,7 +22,7 @@ Footer = require '../../src/components/Footer.coffee'
     Footer
       completedCount: 10
       activeCount: 4
-      filter: SHOW_ALL
+      filter: SHOW_TODO_ALL
       onClearCompleted: action 'onClearCompleted'
       onShow: action 'onShow'
 
@@ -31,7 +33,7 @@ Footer = require '../../src/components/Footer.coffee'
     Footer
       completedCount: 10
       activeCount: 4
-      filter: SHOW_COMPLETED
+      filter: SHOW_TODO_COMPLETED
       onClearCompleted: action 'onClearCompleted'
       onShow: action 'onShow'
 
@@ -42,6 +44,6 @@ Footer = require '../../src/components/Footer.coffee'
     Footer
       completedCount: 10
       activeCount: 4
-      filter: SHOW_ACTIVE
+      filter: SHOW_TODO_ACTIVE
       onClearCompleted: action 'onClearCompleted'
       onShow: action 'onShow'
