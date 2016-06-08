@@ -11,21 +11,22 @@
 } = Comps
 TodoItem = require './TodoItem.coffee'
 Footer = require './Footer.coffee'
+constants = require '../constants/Visibility.coffee'
 {
-  SHOW_ALL
-  SHOW_COMPLETED
-  SHOW_ACTIVE
-} = require '../constants/TodoFilters'
+  SHOW_TODO_ALL
+  SHOW_TODO_ACTIVE
+  SHOW_TODO_COMPLETED
+} = constants.types
 
 TODO_FILTERS = {}
-TODO_FILTERS[SHOW_ALL] = -> true
-TODO_FILTERS[SHOW_ACTIVE] = (todo) -> not todo.completed
-TODO_FILTERS[SHOW_COMPLETED] = (todo) -> todo.completed
+TODO_FILTERS[SHOW_TODO_ALL] = -> true
+TODO_FILTERS[SHOW_TODO_ACTIVE] = (todo) -> not todo.completed
+TODO_FILTERS[SHOW_TODO_COMPLETED] = (todo) -> todo.completed
 
 MainSection = cfx
 
   constructor: (props, context) ->
-    @state = filter: SHOW_ALL
+    @state = filter: SHOW_TODO_ALL
 
   handleClearCompleted: ->
     @props.actions.clearCompleted()
@@ -72,11 +73,6 @@ MainSection = cfx
     completedCount = todos.reduce (count, todo) ->
       if todo.completed then count + 1 else count
     , 0
-
-    # console.log {
-    #   filteredTodos
-    #   completedCount
-    # }
 
     section className: 'main'
     ,

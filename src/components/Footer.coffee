@@ -13,16 +13,17 @@
   strong
   button
 } = Comps
+constants = require '../constants/Visibility.coffee'
 {
-  SHOW_ALL
-  SHOW_COMPLETED
-  SHOW_ACTIVE
-} = require '../constants/TodoFilters'
+  SHOW_TODO_ALL
+  SHOW_TODO_ACTIVE
+  SHOW_TODO_COMPLETED
+} = constants.types
 
 FILTER_TITLES = {}
-FILTER_TITLES[SHOW_ALL] = 'All'
-FILTER_TITLES[SHOW_ACTIVE] = 'Active'
-FILTER_TITLES[SHOW_COMPLETED] = 'Completed'
+FILTER_TITLES[SHOW_TODO_ALL] = 'All'
+FILTER_TITLES[SHOW_TODO_ACTIVE] = 'Active'
+FILTER_TITLES[SHOW_TODO_COMPLETED] = 'Completed'
 
 Footer = cfx
 
@@ -78,9 +79,9 @@ Footer = cfx
       ul className: 'filters'
       ,
         for filter in [
-          SHOW_ALL
-          SHOW_ACTIVE
-          SHOW_COMPLETED
+          SHOW_TODO_ALL
+          SHOW_TODO_ACTIVE
+          SHOW_TODO_COMPLETED
         ]
           @renderFilterLink filter
 

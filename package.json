@@ -30,7 +30,8 @@
     "react-dom": "^15.1.0",
     "react-router": "^2.4.1",
     "todomvc-app-css": "^2.0.6",
-    "cfx.rw": "git+https://github.com/react-cfx/cfx.rw.git"
+    "cfx.rw": "git+https://github.com/react-cfx/cfx.rw.git",
+    "cfx.redux-types": "git+https://github.com/react-cfx/cfx.redux-types.git"
   },
   "_devDependencies": {},
   "devDependencies": {

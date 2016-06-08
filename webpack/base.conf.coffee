@@ -3,7 +3,8 @@ HtmlWebpackPlugin = require 'html-webpack-plugin'
 # ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 module.exports =
-  entry: './src/main.coffee'
+  # entry: './src/main.coffee'
+  entry: './src/script.coffee'
   output:
     path: path.join __dirname, './dist'
     publicPath: '/'
