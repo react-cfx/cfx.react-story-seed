@@ -1,7 +1,7 @@
 require 'todomvc-app-css/index.css'
 
 { render } = require 'react-dom'
-TodoApp = require './App/TodoApp.coffee'
+TodoApp = require './App/index.coffee'
 
 render (
   TodoApp {}

@@ -1,3 +1,4 @@
+echo = -> console.log arguments[0]
 {
   cfx
   Comps
@@ -16,7 +17,7 @@ constants = require '../constants/Visibility.coffee'
 Header = require '../components/Header.coffee'
 MainSection = require '../components/MainSection.coffee'
 
-TodoApp = cfx ->
+TodoApp = cfx (props, state) ->
 
   section
     className: 'todoapp'
@@ -24,17 +25,14 @@ TodoApp = cfx ->
     Header addTodo: action 'Add Todo'
   ,
     MainSection
-      todos: [
-          id: 'one'
-          text: 'Item One'
-          completed: false
-        ,
-          id: 'two'
-          text: 'Item Two'
-          completed: true
-      ]
+      todos: state.todos
       actions:
         clearCompleted: action 'clearCompleted'
         completeAll: action 'completeAll'
 
-module.exports = TodoApp
+module.exports = connect(
+  (state) ->
+    todos: state.todoApp.Todos
+  {}
+  TodoApp
+)

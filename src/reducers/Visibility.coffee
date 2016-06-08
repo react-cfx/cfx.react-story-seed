@@ -3,7 +3,7 @@
   handleAction
 } = reduxActions
 
-constants = require '../constants/Visibility'
+constants = require '../constants/Visibility.coffee'
 {
   SET_VISIBILITY_FILTER
   SET_VISIBILITY_SETTINGS

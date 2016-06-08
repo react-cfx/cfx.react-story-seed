@@ -1,5 +1,5 @@
 { createSelector } = require 'reselect'
-constants = require '../constants/Visibility'
+constants = require '../constants/Visibility.coffee'
 Types = constants.types
 {
   SHOW_TODO_ALL

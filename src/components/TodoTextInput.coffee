@@ -8,8 +8,8 @@
 
 TodoTextInput = cfx
 
-  constructor: (props, context) ->
-    this.state =
+  constructor: (props, state) ->
+    @state =
       text: @props.text or ''
 
   handleSubmit: (e) ->

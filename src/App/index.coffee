@@ -4,7 +4,7 @@
 } = require 'cfx.rw'
 
 store = require './store.coffee'
-TodoApp = require './TodoApp'
+TodoApp = require './TodoApp.coffee'
 
 module.exports = cfx ->
 
