@@ -16,7 +16,7 @@
     "storybook:start": "start-storybook -p 9001",
     "storybook:restart": "npm run storybook:clean; npm run storybook:conf; npm run storybook:start",
     "storybook:demo": "harp server static",
-    "storybook:require": "rm -rf node_modules/cfx.rw/; npm i; npm run storybook:restart",
+    "storybook:require": "rimraf -rf node_modules/cfx.rw/; npm i; npm run storybook:restart",
     "dev": "webpack-dev-server --inline --hot --content-base dist --config webpack/dev.conf.coffee"
   },
   "_dependencies": {
@@ -30,7 +30,7 @@
     "classnames": "^2.2.5",
     "radium": "^0.17.1",
     "react": "^15.1.0",
-    "react-document-title": "^2.0.1",
+    "react-document-title": "^2.0.2",
     "react-dom": "^15.1.0",
     "react-router": "^2.4.1",
     "redux-logger": "^2.6.1",
@@ -48,7 +48,7 @@
     "ddeyes": "0.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.18.0",
+    "html-webpack-plugin": "^2.20.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "json-loader": "^0.5.4",

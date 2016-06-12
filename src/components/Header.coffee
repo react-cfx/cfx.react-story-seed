@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  connect
 } = require 'cfx.rw'
 
 {
@@ -10,12 +11,20 @@
   h1
 } = Comps
 
+{ addTodoState } = require '../actions/index.coffee'
+
+{ initial } = require '../initials/index.coffee'
+
 TodoTextInput = require './TodoTextInput.coffee'
 
 Header = cfx
 
   handleSave: (text) ->
-    @props.addTodo text unless text.length is 0
+    { actions } = arguments[arguments.length - 1]
+    { addTodoState } = actions
+    unless text.length is 0
+      addTodoState
+        todo: initial.todo text
 
   render: ->
     header className: 'header'
@@ -31,4 +40,8 @@ Header = cfx
 Header.propTypes =
   addTodo: PropTypes.func.isRequired
 
-module.exports = Header
+module.exports = connect(
+  ->
+  { addTodoState }
+  Header
+)

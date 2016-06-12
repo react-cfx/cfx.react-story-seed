@@ -1,5 +1,5 @@
 { createActions } = require 'cfx.redux-actions'
 
-constants = require '../constants/Visibility'
+constants = require '../constants/Visibility.coffee'
 
 module.exports = createActions constants.actions

@@ -6,9 +6,6 @@
 constants = require '../constants/Visibility.coffee'
 {
   SET_VISIBILITY_FILTER
-  SET_VISIBILITY_SETTINGS
-  SET_VISIBILITY_CONTAINER
-  SET_VISIBILITY_ALL_TO_REMOVE
 } = constants.types
 
 VisibilityFilter = handleAction(
@@ -21,39 +18,6 @@ VisibilityFilter = handleAction(
     }
 )
 
-VisibilitySettings = handleAction(
-  SET_VISIBILITY_SETTINGS
-  next: (state, action) -> action.payload
-  throw: (state, action) ->
-    throw new Error {
-      state
-      action
-    }
-)
-
-VisibilityContainer = handleAction(
-  SET_VISIBILITY_CONTAINER
-  next: (state, action) -> action.payload
-  throw: (state, action) ->
-    throw new Error {
-      state
-      action
-    }
-)
-
-VisibilityAllToRemove = handleAction(
-  SET_VISIBILITY_ALL_TO_REMOVE
-  next: (state, action) -> action.payload
-  throw: (state, action) ->
-    throw new Error {
-      state
-      action
-    }
-)
-
 module.exports = {
   VisibilityFilter
-  VisibilitySettings
-  VisibilityContainer
-  VisibilityAllToRemove
 }
