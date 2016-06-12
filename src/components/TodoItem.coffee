@@ -28,11 +28,25 @@ TodoItem = cfx
   handleDoubleClick: ->
     @setState editing: true
 
-  handleSave: (id, text) ->
-    if text.length is 0
-      @props.deleteTodo id
+  handleSave: (id, oldText, newText, props) ->
+    {
+      modifyTodoState
+      removeTodoState
+    } = props.actions
+
+    unless newText.length is 0
+      unless newText is oldText
+        modifyTodoState
+          todo: {
+            id
+            text: newText
+          }
+      else
+        @setState editing: false
     else
-      @props.editTodo id, text
+      removeTodoState
+        todoId: id
+
     @state = editing: false
 
   render: (props, state) ->
@@ -78,11 +92,8 @@ TodoItem = cfx
         editing: @state.editing
     , element
 
-# TodoItem.propTypes =
-#   todo: PropTypes.object.isRequired
-#   editTodo: PropTypes.func.isRequired
-#   deleteTodo: PropTypes.func.isRequired
-#   completeTodo: PropTypes.func.isRequired
+TodoItem.propTypes =
+  todo: PropTypes.object.isRequired
 
 module.exports = connect(
   ->

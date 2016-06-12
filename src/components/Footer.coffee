@@ -63,13 +63,9 @@ Footer = cfx
       , title
 
   renderClearButton: (props, state) ->
-    {
-      completedCount
-      # onClearCompleted
-      actions
-    } = props
     { todos } = state
-    { removeTodoState } = actions
+    { completedCount } = props
+    { removeTodoState } = props.actions
 
     if completedCount > 0
 
@@ -99,12 +95,11 @@ Footer = cfx
 
     , @renderClearButton()
 
-# Footer.propTypes =
-#   completedCount: PropTypes.number.isRequired
-#   activeCount: PropTypes.number.isRequired
-#   filter: PropTypes.string.isRequired
-#   onClearCompleted: PropTypes.func.isRequired
-#   onShow: PropTypes.func.isRequired
+Footer.propTypes =
+  completedCount: PropTypes.number.isRequired
+  activeCount: PropTypes.number.isRequired
+  filter: PropTypes.string.isRequired
+  onShow: PropTypes.func.isRequired
 
 module.exports = connect(
   (state) ->

@@ -10,9 +10,11 @@
   section
   ul
 } = Comps
+
 TodoItem = require './TodoItem.coffee'
 Footer = require './Footer.coffee'
 constants = require '../constants/Visibility.coffee'
+
 {
   SHOW_TODO_ALL
   SHOW_TODO_ACTIVE
@@ -82,7 +84,6 @@ MainSection = cfx
         completedCount
         activeCount
         filter
-        onClearCompleted: @handleClearCompleted.bind @
         onShow: @handleShow.bind @
       }
 
@@ -109,10 +110,6 @@ MainSection = cfx
             todo: todo
           , actions
     , @renderFooter completedCount
-
-# MainSection.propTypes =
-#   todos: PropTypes.array.isRequired
-#   actions: PropTypes.object.isRequired
 
 module.exports = connect(
   (state) ->

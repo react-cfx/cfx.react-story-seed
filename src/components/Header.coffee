@@ -37,9 +37,6 @@ Header = cfx
         onSave: @handleSave.bind @
         placeholder: 'What needs to be done?'
 
-Header.propTypes =
-  addTodo: PropTypes.func.isRequired
-
 module.exports = connect(
   ->
   { addTodoState }

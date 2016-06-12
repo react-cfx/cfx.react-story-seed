@@ -18,10 +18,9 @@ MainSection = require '../components/MainSection.coffee'
 
 TodoApp = cfx (props, state) ->
 
-  section
-    className: 'todoapp'
+  section className: 'todoapp'
   ,
-    Header addTodo: action 'Add Todo'
+    Header()
   ,
     MainSection()
 
