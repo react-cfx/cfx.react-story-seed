@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  connect
 } = require 'cfx.rw'
 {
   span
@@ -24,6 +25,8 @@ FILTER_TITLES = {}
 FILTER_TITLES[SHOW_TODO_ALL] = 'All'
 FILTER_TITLES[SHOW_TODO_ACTIVE] = 'Active'
 FILTER_TITLES[SHOW_TODO_COMPLETED] = 'Completed'
+
+{ removeTodoState } = require '../actions/index.coffee'
 
 Footer = cfx
 
@@ -59,16 +62,25 @@ Footer = cfx
         onClick: -> onShow filter
       , title
 
-  renderClearButton: ->
+  renderClearButton: (props, state) ->
     {
       completedCount
-      onClearCompleted
-    } = @props
+      # onClearCompleted
+      actions
+    } = props
+    { todos } = state
+    { removeTodoState } = actions
+
     if completedCount > 0
 
       button
         className: 'clear-completed'
-        onClick: onClearCompleted
+        onClick: ->
+          todos.forEach (todo, index, array) ->
+            if todo.completed is true
+              removeTodoState
+                todoId: todo.id
+
       , 'Clear completed'
 
   render: ->
@@ -87,11 +99,16 @@ Footer = cfx
 
     , @renderClearButton()
 
-Footer.propTypes =
-  completedCount: PropTypes.number.isRequired
-  activeCount: PropTypes.number.isRequired
-  filter: PropTypes.string.isRequired
-  onClearCompleted: PropTypes.func.isRequired
-  onShow: PropTypes.func.isRequired
+# Footer.propTypes =
+#   completedCount: PropTypes.number.isRequired
+#   activeCount: PropTypes.number.isRequired
+#   filter: PropTypes.string.isRequired
+#   onClearCompleted: PropTypes.func.isRequired
+#   onShow: PropTypes.func.isRequired
 
-module.exports = Footer
+module.exports = connect(
+  (state) ->
+    todos: state.todoApp.Todos
+  { removeTodoState }
+  Footer
+)
