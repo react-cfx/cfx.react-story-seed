@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  connect
 } = require 'cfx.rw'
 
 {
@@ -14,6 +15,10 @@
 } = Comps
 
 TodoTextInput = require './TodoTextInput.coffee'
+{
+  modifyTodoState
+  removeTodoState
+} = require '../actions/index.coffee'
 
 TodoItem = cfx
 
@@ -30,12 +35,12 @@ TodoItem = cfx
       @props.editTodo id, text
     @state = editing: false
 
-  render: ->
+  render: (props, state) ->
+    { todo } = props
     {
-      todo
-      completeTodo
-      deleteTodo
-    } = @props
+      modifyTodoState
+      removeTodoState
+    } = props.actions
 
     element =
       if @state.editing
@@ -52,7 +57,10 @@ TodoItem = cfx
             className: 'toggle'
             type: 'checkbox'
             checked: todo.completed
-            onChange: -> completeTodo todo.id
+            onChange: -> modifyTodoState
+              todo:
+                id: todo.id
+                completed: !todo.completed
         ,
           label
             onDoubleClick: @handleDoubleClick.bind @
@@ -60,7 +68,8 @@ TodoItem = cfx
         ,
           button
             className: 'destroy'
-            onClick: -> deleteTodo todo.id
+            onClick: -> removeTodoState
+              todoId: todo.id
       )
 
     li
@@ -69,10 +78,17 @@ TodoItem = cfx
         editing: @state.editing
     , element
 
-TodoItem.propTypes =
-  todo: PropTypes.object.isRequired
-  editTodo: PropTypes.func.isRequired
-  deleteTodo: PropTypes.func.isRequired
-  completeTodo: PropTypes.func.isRequired
+# TodoItem.propTypes =
+#   todo: PropTypes.object.isRequired
+#   editTodo: PropTypes.func.isRequired
+#   deleteTodo: PropTypes.func.isRequired
+#   completeTodo: PropTypes.func.isRequired
 
-module.exports = TodoItem
+module.exports = connect(
+  ->
+  {
+    modifyTodoState
+    removeTodoState
+  }
+  TodoItem
+)

@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  connect
 } = require 'cfx.rw'
 { input } = Comps
 
@@ -46,4 +47,8 @@ TodoTextInput.propTypes =
   editing: PropTypes.bool
   newTodo: PropTypes.bool
 
-module.exports = TodoTextInput
+module.exports = connect(
+  ->
+  {}
+  TodoTextInput
+)

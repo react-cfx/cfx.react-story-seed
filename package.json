@@ -20,7 +20,8 @@
     "dev": "webpack-dev-server --inline --hot --content-base dist --config webpack/dev.conf.coffee"
   },
   "_dependencies": {
-    "cfx.rw": "../cfx.rw"
+    "cfx.rw": "../cfx.rw",
+    "cfx.example-cfx-redux-todo": "../example-cfx-redux-todo"
   },
   "dependencies": {
     "cfx.example-cfx-redux-todo": "git+https://github.com/react-cfx/example-cfx-redux-todo.git",
