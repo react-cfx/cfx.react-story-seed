@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  connect
 } = require 'cfx.rw'
 {
   input
@@ -18,6 +19,8 @@ constants = require '../constants/Visibility.coffee'
   SHOW_TODO_COMPLETED
 } = constants.types
 
+{ modifyTodoState } = require '../actions/index.coffee'
+
 TODO_FILTERS = {}
 TODO_FILTERS[SHOW_TODO_ALL] = -> true
 TODO_FILTERS[SHOW_TODO_ACTIVE] = (todo) -> not todo.completed
@@ -25,7 +28,7 @@ TODO_FILTERS[SHOW_TODO_COMPLETED] = (todo) -> todo.completed
 
 MainSection = cfx
 
-  constructor: (props, context) ->
+  constructor: (props, state) ->
     @state = filter: SHOW_TODO_ALL
 
   handleClearCompleted: ->
@@ -34,22 +37,43 @@ MainSection = cfx
   handleShow: (filter) ->
     @setState {filter}
 
-  renderToggleAll: (completedCount) ->
-    {
-      todos
-      actions
-    } = @props
+  toggleAll: (e, props, state) ->
+    { todos } = state
+    { modifyTodoState } = props.actions
+    allSelected = true
+
+    todos.forEach (todo, index, array) ->
+      unless todo.completed
+        allSelected = false
+
+    unless allSelected
+      todos.forEach (todo, index, array) ->
+        unless todo.completed
+          modifyTodoState
+            todo:
+              id: todo.id
+              completed: true
+    else
+      todos.forEach (todo, index, array) ->
+        if todo.completed
+          modifyTodoState
+            todo:
+              id: todo.id
+              completed: false
+
+  renderToggleAll: (completedCount, props, state) ->
+    { todos } = state
 
     if todos.length > 0
 
       input
         className: 'toggle-all'
         type: 'checkbox'
-        checked: completedCount is todos.length
-        onChange: actions.completeAll
+        # checked: completedCount is todos.length
+        onChange: @toggleAll
 
-  renderFooter: (completedCount) ->
-    { todos } = @props
+  renderFooter: (completedCount, props, state) ->
+    { todos } = state
     { filter } = @state
     activeCount = todos.length - completedCount
 
@@ -62,11 +86,9 @@ MainSection = cfx
         onShow: @handleShow.bind @
       }
 
-  render: ->
-    {
-      todos
-      actions
-    } = @props
+  render: (props, state) ->
+    { todos } = state
+    { actions } = @props
     { filter } = @state
 
     filteredTodos = todos.filter TODO_FILTERS[filter]
@@ -88,8 +110,13 @@ MainSection = cfx
           , actions
     , @renderFooter completedCount
 
-MainSection.propTypes =
-  todos: PropTypes.array.isRequired
-  actions: PropTypes.object.isRequired
+# MainSection.propTypes =
+#   todos: PropTypes.array.isRequired
+#   actions: PropTypes.object.isRequired
 
-module.exports = MainSection
+module.exports = connect(
+  (state) ->
+    todos: state.todoApp.Todos
+  { modifyTodoState }
+  MainSection
+)

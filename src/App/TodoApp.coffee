@@ -2,7 +2,6 @@ echo = -> console.log arguments[0]
 {
   cfx
   Comps
-  connect
 } = require 'cfx.rw'
 { section } = Comps
 { action } = require '@kadira/storybook'
@@ -24,15 +23,6 @@ TodoApp = cfx (props, state) ->
   ,
     Header addTodo: action 'Add Todo'
   ,
-    MainSection
-      todos: state.todos
-      actions:
-        clearCompleted: action 'clearCompleted'
-        completeAll: action 'completeAll'
+    MainSection()
 
-module.exports = connect(
-  (state) ->
-    todos: state.todoApp.Todos
-  {}
-  TodoApp
-)
+module.exports = TodoApp
