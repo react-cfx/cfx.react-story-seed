@@ -10,36 +10,32 @@ Header = Components.Header(
 
 { Footer } = Components
 
-tagWapper = (props, option, tagFunc) ->
-  args = []
-  args.push props if props
-  args.push option if option
+tagWapper = (tagFunc, option) ->
+  (props) ->
+    args = []
+    args.push props if props
+    args.push option if option
 
-  if args.length is 2
-    args = [
-      Object.assign {}
-      , props
-      , option
-    ]
+    if args.length is 2
+      args = [
+        Object.assign {}
+        , props
+        , option
+      ]
 
-  tagFunc.apply @, args
+    tagFunc.apply @, args
 
-MainSection = (Options) ->
+MainSection = (props) ->
+  if props._Options
+    Options = props._Options
+    delete props._Options
 
   Components.MainSection(
-    (props) ->
-      tagWapper.apply @, [
-        props
-        Options.TodoItem
-        TodoItem
-      ]
-    (props) ->
-      tagWapper.apply @, [
-        props
-        Options.Footer
-        Footer
-      ]
-  )
+    tagWapper TodoItem
+    , Options.TodoItem
+    tagWapper Footer
+    , Options.Footer
+  ) props
 
 module.exports = {
   TodoItem

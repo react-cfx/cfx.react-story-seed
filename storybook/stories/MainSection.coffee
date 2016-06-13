@@ -8,28 +8,20 @@
 
 { MainSection } = require './components.coffee'
 
-tagWapper = (tagFunc, Options, props) ->
-  _tagFunc = tagFunc Options
-  _tagFunc props
-
-_MainSection = (props) ->
-  tagWapper MainSection
-  ,
-    TodoItem:
-      actions:
-        modifyTodoState: action 'modifyTodoState'
-        removeTodoState: action 'removeTodoState'
-  , props
-
 getMainSection = (todos) ->
+
+  actions =
+    modifyTodoState: action 'modifyTodoState'
+    removeTodoState: action 'removeTodoState'
 
   div className: 'todoapp'
   ,
-    _MainSection
+    MainSection
       state: { todos }
-      actions:
-        modifyTodoState: action 'modifyTodoState'
-        removeTodoState: action 'removeTodoState'
+      actions: actions
+      _Options:
+        TodoItem:
+          actions: actions
 
 (storiesOf 'MainSection', module)
 
@@ -47,30 +39,30 @@ getMainSection = (todos) ->
 
   getMainSection todoItems
 
-# .add 'some completed', ->
-#
-#   todoItems = [
-#       id: 'one'
-#       text: 'Item One'
-#       completed: false
-#     ,
-#       id: 'two'
-#       text: 'Item Two'
-#       completed: true
-#   ]
-#
-#   getMainSection todoItems
-#
-# .add 'all completed', ->
-#
-#   todoItems = [
-#       id: 'one'
-#       text: 'Item One'
-#       completed: true
-#     ,
-#       id: 'two'
-#       text: 'Item Two'
-#       completed: true
-#   ]
-#
-#   getMainSection todoItems
+.add 'some completed', ->
+
+  todoItems = [
+      id: 'one'
+      text: 'Item One'
+      completed: false
+    ,
+      id: 'two'
+      text: 'Item Two'
+      completed: true
+  ]
+
+  getMainSection todoItems
+
+.add 'all completed', ->
+
+  todoItems = [
+      id: 'one'
+      text: 'Item One'
+      completed: true
+    ,
+      id: 'two'
+      text: 'Item Two'
+      completed: true
+  ]
+
+  getMainSection todoItems
