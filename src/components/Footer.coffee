@@ -26,13 +26,12 @@ FILTER_TITLES[SHOW_TODO_ALL] = 'All'
 FILTER_TITLES[SHOW_TODO_ACTIVE] = 'Active'
 FILTER_TITLES[SHOW_TODO_COMPLETED] = 'Completed'
 
-{ removeTodoState } = require '../actions/index.coffee'
-
 Footer = cfx
 
-  renderTodoCount: ->
+  renderTodoCount: (props, state) ->
 
-    { activeCount } = @props
+    { activeCount } = props
+
     itemWord =
       if activeCount is 1
       then 'item'
@@ -45,6 +44,7 @@ Footer = cfx
     , " #{itemWord} left"
 
   renderFilterLink: (filter) ->
+
     title = FILTER_TITLES[filter]
     {
       filter: selectedFilter
@@ -63,20 +63,17 @@ Footer = cfx
       , title
 
   renderClearButton: (props, state) ->
-    { todos } = state
-    { completedCount } = props
-    { removeTodoState } = props.actions
+
+    {
+      completedCount
+      clearCompleted
+    } = props
 
     if completedCount > 0
 
       button
         className: 'clear-completed'
-        onClick: ->
-          todos.forEach (todo, index, array) ->
-            if todo.completed is true
-              removeTodoState
-                todoId: todo.id
-
+        onClick: -> clearCompleted()
       , 'Clear completed'
 
   render: ->
@@ -96,14 +93,10 @@ Footer = cfx
     , @renderClearButton()
 
 Footer.propTypes =
-  completedCount: PropTypes.number.isRequired
   activeCount: PropTypes.number.isRequired
+  completedCount: PropTypes.number.isRequired
   filter: PropTypes.string.isRequired
   onShow: PropTypes.func.isRequired
+  clearCompleted: PropTypes.func.isRequired
 
-module.exports = connect(
-  (state) ->
-    todos: state.todoApp.Todos
-  { removeTodoState }
-  Footer
-)
+module.exports = Footer

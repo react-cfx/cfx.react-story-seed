@@ -11,6 +11,7 @@
     "url": "https://github.com/Mooxe000/cfx.react-story-seed/issues"
   },
   "scripts": {
+    "static": "harp -i '0.0.0.0' server static",
     "storybook:clean": "rimraf .storybook",
     "storybook:conf": "coffee -b -o .storybook ./storybook/config",
     "storybook:start": "start-storybook -p 9001",

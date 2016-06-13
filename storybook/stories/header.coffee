@@ -1,6 +1,10 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
-Header = require '../../src/components/Header.coffee'
+
+{
+  Header
+} = require './components.coffee'
+
 {
   storiesOf
   action
@@ -12,4 +16,6 @@ Header = require '../../src/components/Header.coffee'
 
   div className: 'todoapp'
   ,
-    Header addTodo: action 'Add Todo'
+    Header
+      actions:
+        addTodoState: action 'addTodoState'

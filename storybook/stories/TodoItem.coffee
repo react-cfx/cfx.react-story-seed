@@ -1,6 +1,8 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
-TodoItem = require '../../src/components/TodoItem.coffee'
+
+{ TodoItem } = require './components.coffee'
+
 {
   storiesOf
   action
@@ -9,16 +11,14 @@ TodoItem = require '../../src/components/TodoItem.coffee'
 getItem = (todo) ->
 
   div className: 'todoapp'
-
   ,
     div className: 'todo-list'
-
     ,
       TodoItem
         todo: todo
-        editTodo: action 'editTodo'
-        deleteTodo: action 'deleteTodo'
-        completeTodo: action 'completeTodo'
+        actions:
+          modifyTodoState: action 'modifyTodoState'
+          removeTodoState: action 'removeTodoState'
 
 (storiesOf 'TodoItem', module)
 

@@ -3,7 +3,6 @@
   classnames
   cfx
   Comps
-  connect
 } = require 'cfx.rw'
 
 {
@@ -11,16 +10,12 @@
   h1
 } = Comps
 
-{ addTodoState } = require '../actions/index.coffee'
-
 { initial } = require '../initials/index.coffee'
 
-TodoTextInput = require './TodoTextInput.coffee'
+Header = (TodoTextInput) -> cfx
 
-Header = cfx
-
-  handleSave: (text) ->
-    { actions } = arguments[arguments.length - 1]
+  handleSave: (text, props, state) ->
+    { actions } = props
     { addTodoState } = actions
     unless text.length is 0
       addTodoState
@@ -37,8 +32,4 @@ Header = cfx
         onSave: @handleSave.bind @
         placeholder: 'What needs to be done?'
 
-module.exports = connect(
-  ->
-  { addTodoState }
-  Header
-)
+module.exports = Header

@@ -11,8 +11,6 @@
   ul
 } = Comps
 
-TodoItem = require './TodoItem.coffee'
-Footer = require './Footer.coffee'
 constants = require '../constants/Visibility.coffee'
 
 {
@@ -21,20 +19,78 @@ constants = require '../constants/Visibility.coffee'
   SHOW_TODO_COMPLETED
 } = constants.types
 
-{ modifyTodoState } = require '../actions/index.coffee'
-
 TODO_FILTERS = {}
 TODO_FILTERS[SHOW_TODO_ALL] = -> true
 TODO_FILTERS[SHOW_TODO_ACTIVE] = (todo) -> not todo.completed
 TODO_FILTERS[SHOW_TODO_COMPLETED] = (todo) -> todo.completed
 
-MainSection = cfx
+MainSection = (TodoItem, Footer) -> cfx
+
+  _getCount: (newProps, oldProps, state) ->
+
+    getCount = (todos, countCompleted) ->
+      activeCount = (
+        todos.filter TODO_FILTERS[SHOW_TODO_ACTIVE]
+      ).length
+      if countCompleted
+        completedCount = todos.length - activeCount
+      else
+        completedCount = null
+      {
+        activeCount
+        completedCount
+      }
+
+    unless @state
+      {
+        activeCount
+        completedCount
+      } = getCount state.todos, true
+    else
+      { todos } = newProps.state
+      { activeCount } = getCount todos, false
+      unless activeCount is @state.activeCount
+        completedCount = todos.length - activeCount
+      else
+        {
+          activeCount
+          completedCount
+        } = @state
+    {
+      activeCount
+      completedCount
+    }
 
   constructor: (props, state) ->
-    @state = filter: SHOW_TODO_ALL
+    {
+      activeCount
+      completedCount
+    } = @_getCount null
+    @state = {
+      activeCount
+      completedCount
+      filter: SHOW_TODO_ALL
+    }
 
-  handleClearCompleted: ->
-    @props.actions.clearCompleted()
+  componentWillReceiveProps: (nextProps) ->
+    {
+      activeCount
+      completedCount
+    } = @_getCount nextProps
+    @setState Object.assign {}
+    , @state
+    , {
+      activeCount
+      completedCount
+    }
+
+  handleClearCompleted: (props, state) ->
+    { todos } = state
+    { removeTodoState } = props.actions
+    todos.forEach (todo, index, array) ->
+      if todo.completed
+        removeTodoState
+          todoId: todo.id
 
   handleShow: (filter) ->
     @setState {filter}
@@ -63,8 +119,9 @@ MainSection = cfx
               id: todo.id
               completed: false
 
-  renderToggleAll: (completedCount, props, state) ->
+  renderToggleAll: (props, state) ->
     { todos } = state
+    # { completedCount } = @state
 
     if todos.length > 0
 
@@ -74,46 +131,39 @@ MainSection = cfx
         # checked: completedCount is todos.length
         onChange: @toggleAll
 
-  renderFooter: (completedCount, props, state) ->
+  renderFooter: (props, state) ->
     { todos } = state
-    { filter } = @state
-    activeCount = todos.length - completedCount
+    {
+      activeCount
+      completedCount
+      filter
+    } = @state
 
     if todos.length
       Footer {
-        completedCount
         activeCount
+        completedCount
         filter
         onShow: @handleShow.bind @
+        clearCompleted: @handleClearCompleted.bind @
       }
 
   render: (props, state) ->
     { todos } = state
-    { actions } = @props
     { filter } = @state
 
     filteredTodos = todos.filter TODO_FILTERS[filter]
-    completedCount = todos.reduce (count, todo) ->
-      if todo.completed then count + 1 else count
-    , 0
 
     section className: 'main'
     ,
-      @renderToggleAll completedCount
+      @renderToggleAll()
     ,
       ul className: 'todo-list'
       ,
         for todo in filteredTodos
-          TodoItem Object.assign {}
-          ,
+          TodoItem
             key: todo.id
             todo: todo
-          , actions
-    , @renderFooter completedCount
+    , @renderFooter()
 
-module.exports = connect(
-  (state) ->
-    todos: state.todoApp.Todos
-  { modifyTodoState }
-  MainSection
-)
+module.exports = MainSection

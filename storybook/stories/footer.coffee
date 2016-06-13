@@ -1,10 +1,6 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
-Footer = require '../../src/components/Footer.coffee'
-{
-  storiesOf
-  action
-} = require '@kadira/storybook'
+{ Footer } = require '../../src/components/index.coffee'
 
 constants = require '../../src/constants/Visibility.coffee'
 {
@@ -13,6 +9,13 @@ constants = require '../../src/constants/Visibility.coffee'
   SHOW_TODO_COMPLETED
 } = constants.types
 
+{
+  storiesOf
+  action
+} = require '@kadira/storybook'
+
+initials = require '../../src/initials/Todos.coffee'
+
 (storiesOf 'Footer', module)
 
 .add 'default view', ->
@@ -20,30 +23,30 @@ constants = require '../../src/constants/Visibility.coffee'
   div className: 'todoapp'
   ,
     Footer
-      completedCount: 10
-      activeCount: 4
+      activeCount: 0
+      completedCount: 0
       filter: SHOW_TODO_ALL
-      onClearCompleted: action 'onClearCompleted'
       onShow: action 'onShow'
-
-.add 'show completed', ->
-
-  div className: 'todoapp'
-  ,
-    Footer
-      completedCount: 10
-      activeCount: 4
-      filter: SHOW_TODO_COMPLETED
-      onClearCompleted: action 'onClearCompleted'
-      onShow: action 'onShow'
+      clearCompleted: action 'clearCompleted'
 
 .add 'show active', ->
 
   div className: 'todoapp'
   ,
     Footer
+      activeCount: 5
       completedCount: 10
-      activeCount: 4
       filter: SHOW_TODO_ACTIVE
-      onClearCompleted: action 'onClearCompleted'
       onShow: action 'onShow'
+      clearCompleted: action 'clearCompleted'
+
+.add 'show completed', ->
+
+  div className: 'todoapp'
+  ,
+    Footer
+      activeCount: 5
+      completedCount: 10
+      filter: SHOW_TODO_COMPLETED
+      onShow: action 'onShow'
+      clearCompleted: action 'clearCompleted'

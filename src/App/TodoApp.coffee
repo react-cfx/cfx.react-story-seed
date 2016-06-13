@@ -13,8 +13,11 @@ constants = require '../constants/Visibility.coffee'
   SHOW_TODO_COMPLETED
 } = constants.types
 
-Header = require '../components/Header.coffee'
-MainSection = require '../components/MainSection.coffee'
+{
+  Header
+  MainSection
+} = require '../connect/index.coffee'
+TodoTextInput = require '../components/TodoTextInput.coffee'
 
 TodoApp = cfx (props, state) ->
 

@@ -14,13 +14,7 @@
   li
 } = Comps
 
-TodoTextInput = require './TodoTextInput.coffee'
-{
-  modifyTodoState
-  removeTodoState
-} = require '../actions/index.coffee'
-
-TodoItem = cfx
+TodoItem = (TodoTextInput) -> cfx
 
   constructor: (props, context) ->
     @state = editing: false
@@ -74,7 +68,7 @@ TodoItem = cfx
             onChange: -> modifyTodoState
               todo:
                 id: todo.id
-                completed: !todo.completed
+                completed: not todo.completed
         ,
           label
             onDoubleClick: @handleDoubleClick.bind @
@@ -95,11 +89,4 @@ TodoItem = cfx
 TodoItem.propTypes =
   todo: PropTypes.object.isRequired
 
-module.exports = connect(
-  ->
-  {
-    modifyTodoState
-    removeTodoState
-  }
-  TodoItem
-)
+module.exports = TodoItem

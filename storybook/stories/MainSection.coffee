@@ -1,23 +1,35 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
-MainSection = require '../../src/components/MainSection.coffee'
+
 {
   storiesOf
   action
 } = require '@kadira/storybook'
 
-getMainSection = (todos) ->
+{ MainSection } = require './components.coffee'
 
-  actions =
-    clearCompleted: action 'clearCompleted'
-    completeAll: action 'completeAll'
+tagWapper = (tagFunc, Options, props) ->
+  _tagFunc = tagFunc Options
+  _tagFunc props
+
+_MainSection = (props) ->
+  tagWapper MainSection
+  ,
+    TodoItem:
+      actions:
+        modifyTodoState: action 'modifyTodoState'
+        removeTodoState: action 'removeTodoState'
+  , props
+
+getMainSection = (todos) ->
 
   div className: 'todoapp'
   ,
-    MainSection {
-      todos
-      actions
-    }
+    _MainSection
+      state: { todos }
+      actions:
+        modifyTodoState: action 'modifyTodoState'
+        removeTodoState: action 'removeTodoState'
 
 (storiesOf 'MainSection', module)
 
@@ -35,30 +47,30 @@ getMainSection = (todos) ->
 
   getMainSection todoItems
 
-.add 'some completed', ->
-
-  todoItems = [
-      id: 'one'
-      text: 'Item One'
-      completed: false
-    ,
-      id: 'two'
-      text: 'Item Two'
-      completed: true
-  ]
-
-  getMainSection todoItems
-
-.add 'all completed', ->
-
-  todoItems = [
-      id: 'one'
-      text: 'Item One'
-      completed: true
-    ,
-      id: 'two'
-      text: 'Item Two'
-      completed: true
-  ]
-
-  getMainSection todoItems
+# .add 'some completed', ->
+#
+#   todoItems = [
+#       id: 'one'
+#       text: 'Item One'
+#       completed: false
+#     ,
+#       id: 'two'
+#       text: 'Item Two'
+#       completed: true
+#   ]
+#
+#   getMainSection todoItems
+#
+# .add 'all completed', ->
+#
+#   todoItems = [
+#       id: 'one'
+#       text: 'Item One'
+#       completed: true
+#     ,
+#       id: 'two'
+#       text: 'Item Two'
+#       completed: true
+#   ]
+#
+#   getMainSection todoItems
