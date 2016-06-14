@@ -3,6 +3,7 @@
   classnames
   cfx
   Comps
+  c
 } = require 'cfx.rw'
 { input } = Comps
 
@@ -26,11 +27,14 @@ TodoTextInput = cfx
   handleBlur: (e) ->
     @props.onSave e.target.value unless @props.newTodo
 
-  render: ->
+  render: (props, state) ->
     input
-      className: classnames
-        edit: @props.editing
-        'new-todo': @props.newTodo
+      className: c(
+        classnames
+          edit: @props.editing
+          'new-todo': @props.newTodo
+        do -> props.styles.input if props.styles?.input?
+      )
       type: 'text'
       placeholder: @props.placeholder
       autoFocus: 'true'
@@ -41,6 +45,7 @@ TodoTextInput = cfx
 
 TodoTextInput.propTypes =
   onSave: PropTypes.func.isRequired
+  # style: PropTypes.object.isRequired
   text: PropTypes.string
   placeholder: PropTypes.string
   editing: PropTypes.bool
