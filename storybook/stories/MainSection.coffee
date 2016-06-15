@@ -7,6 +7,7 @@
 } = require '@kadira/storybook'
 
 { MainSection } = require './components.coffee'
+{ wapper } = require './storyHelper.coffee'
 
 getMainSection = (todos) ->
 
@@ -25,7 +26,8 @@ getMainSection = (todos) ->
 
 (storiesOf 'MainSection', module)
 
-.add 'all active', ->
+.add 'all active'
+, wapper.lookRoot ->
 
   todoItems = [
       id: 'one'
@@ -39,7 +41,8 @@ getMainSection = (todos) ->
 
   getMainSection todoItems
 
-.add 'some completed', ->
+.add 'some completed'
+, wapper.lookRoot ->
 
   todoItems = [
       id: 'one'
@@ -53,7 +56,8 @@ getMainSection = (todos) ->
 
   getMainSection todoItems
 
-.add 'all completed', ->
+.add 'all completed'
+, wapper.lookRoot ->
 
   todoItems = [
       id: 'one'

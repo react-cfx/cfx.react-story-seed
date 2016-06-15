@@ -1,6 +1,6 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
-{ Footer } = require '../../src/components/index.coffee'
+{ wapper } = require './storyHelper.coffee'
 
 constants = require '../../src/constants/Visibility.coffee'
 {
@@ -16,9 +16,12 @@ constants = require '../../src/constants/Visibility.coffee'
 
 initials = require '../../src/initials/Todos.coffee'
 
+{ Footer } = require '../../src/components/index.coffee'
+
 (storiesOf 'Footer', module)
 
-.add 'default view', ->
+.add 'default view'
+, wapper.lookRoot ->
 
   div className: 'todoapp'
   ,
@@ -29,7 +32,8 @@ initials = require '../../src/initials/Todos.coffee'
       onShow: action 'onShow'
       clearCompleted: action 'clearCompleted'
 
-.add 'show active', ->
+.add 'show active'
+, wapper.lookRoot ->
 
   div className: 'todoapp'
   ,
@@ -40,7 +44,8 @@ initials = require '../../src/initials/Todos.coffee'
       onShow: action 'onShow'
       clearCompleted: action 'clearCompleted'
 
-.add 'show completed', ->
+.add 'show completed'
+, wapper.lookRoot ->
 
   div className: 'todoapp'
   ,

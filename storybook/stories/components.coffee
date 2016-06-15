@@ -1,4 +1,5 @@
 Components = require '../../src/components/index.coffee'
+{ wapper } = require './storyHelper.coffee'
 
 TodoItem = Components.TodoItem(
   Components.TodoTextInput
@@ -10,30 +11,15 @@ Header = Components.Header(
 
 { Footer } = Components
 
-tagWapper = (tagFunc, option) ->
-  (props) ->
-    args = []
-    args.push props if props
-    args.push option if option
-
-    if args.length is 2
-      args = [
-        Object.assign {}
-        , props
-        , option
-      ]
-
-    tagFunc.apply @, args
-
 MainSection = (props) ->
   if props._Options
     Options = props._Options
     delete props._Options
 
   Components.MainSection(
-    tagWapper TodoItem
+    wapper.tag TodoItem
     , Options.TodoItem
-    tagWapper Footer
+    wapper.tag Footer
     , Options.Footer
   ) props
 

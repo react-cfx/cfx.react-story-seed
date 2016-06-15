@@ -1,5 +1,6 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
+{ wapper } = require './storyHelper.coffee'
 
 { TodoItem } = require './components.coffee'
 
@@ -22,7 +23,8 @@ getItem = (todo) ->
 
 (storiesOf 'TodoItem', module)
 
-.add 'not completed', ->
+.add 'not completed'
+, wapper.lookRoot ->
 
   todo =
     id: 'the-id'
@@ -31,7 +33,8 @@ getItem = (todo) ->
 
   getItem todo
 
-.add 'completed', ->
+.add 'completed'
+, wapper.lookRoot ->
 
   todo =
     id: 'the-id'

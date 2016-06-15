@@ -1,5 +1,6 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
+{ wapper } = require './storyHelper.coffee'
 
 {
   Header
@@ -12,7 +13,8 @@
 
 (storiesOf 'Header', module)
 
-.add 'default view', ->
+.add 'default view'
+, wapper.lookRoot ->
 
   div className: 'todoapp'
   ,
