@@ -11,18 +11,17 @@
   ul
 } = Comps
 
-constants = require '../constants/Visibility.coffee'
-
+constants = require '../constants/index.coffee'
 {
   SHOW_TODO_ALL
   SHOW_TODO_ACTIVE
   SHOW_TODO_COMPLETED
 } = constants.types
 
-TODO_FILTERS = {}
-TODO_FILTERS[SHOW_TODO_ALL] = -> true
-TODO_FILTERS[SHOW_TODO_ACTIVE] = (todo) -> not todo.completed
-TODO_FILTERS[SHOW_TODO_COMPLETED] = (todo) -> todo.completed
+TODO_FILTERS =
+  SHOW_TODO_ALL: -> true
+  SHOW_TODO_ACTIVE: (todo) -> not todo.completed
+  SHOW_TODO_COMPLETED: (todo) -> todo.completed
 
 MainSection = (TodoItem, Footer) -> cfx
 

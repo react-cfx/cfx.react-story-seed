@@ -1,13 +1,7 @@
-{
-  toActionsTypes
-  mergeActionsTypes
-} = require 'cfx.redux-types'
+{ mergeActionsTypes } = require 'cfx.redux-types'
 
 module.exports = mergeActionsTypes
 
-  VisibilityFilter: toActionsTypes {
-    'SET_VISIBILITY_FILTER'
-  }
   VisibilityFilterTypes:
     types: {
       'SHOW_TODO_ALL'

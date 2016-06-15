@@ -6,13 +6,6 @@ echo = -> console.log arguments[0]
 { section } = Comps
 { action } = require '@kadira/storybook'
 
-constants = require '../constants/Visibility.coffee'
-{
-  SHOW_TODO_ALL
-  SHOW_TODO_ACTIVE
-  SHOW_TODO_COMPLETED
-} = constants.types
-
 {
   Header
   MainSection

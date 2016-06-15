@@ -14,17 +14,20 @@
   strong
   button
 } = Comps
-constants = require '../constants/Visibility.coffee'
+
+constants = require '../constants/index.coffee'
 {
   SHOW_TODO_ALL
   SHOW_TODO_ACTIVE
   SHOW_TODO_COMPLETED
 } = constants.types
 
-FILTER_TITLES = {}
-FILTER_TITLES[SHOW_TODO_ALL] = 'All'
-FILTER_TITLES[SHOW_TODO_ACTIVE] = 'Active'
-FILTER_TITLES[SHOW_TODO_COMPLETED] = 'Completed'
+console.log constants
+
+FILTER_TITLES =
+  SHOW_TODO_ALL: 'All'
+  SHOW_TODO_ACTIVE: 'Active'
+  SHOW_TODO_COMPLETED: 'Completed'
 
 Footer = cfx
 

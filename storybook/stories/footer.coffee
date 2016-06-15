@@ -2,19 +2,19 @@
 { div } = Comps
 { wapper } = require './storyHelper.coffee'
 
-constants = require '../../src/constants/Visibility.coffee'
-{
-  SHOW_TODO_ALL
-  SHOW_TODO_ACTIVE
-  SHOW_TODO_COMPLETED
-} = constants.types
-
 {
   storiesOf
   action
 } = require '@kadira/storybook'
 
 initials = require '../../src/initials/Todos.coffee'
+
+constants = require '../../src/constants/index.coffee'
+{
+  SHOW_TODO_ALL
+  SHOW_TODO_ACTIVE
+  SHOW_TODO_COMPLETED
+} = constants.types
 
 { Footer } = require '../../src/components/index.coffee'
 
