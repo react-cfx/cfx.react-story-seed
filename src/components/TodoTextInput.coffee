@@ -4,8 +4,34 @@
   cfx
   Comps
   c
+  Styl
 } = require 'cfx.rw'
 { input } = Comps
+
+styles = Styl
+
+  newTodo:
+    position: 'relative'
+    margin: 0
+    width: '100%'
+    fontSize: '24px'
+    fontFamily: 'inherit'
+    fontWeight: 'inherit'
+    lineHeight: '1.4em'
+    border: 0
+    color: 'inherit'
+    padding: '6px'
+    border: '1px solid #999'
+    boxShadow: 'inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2)'
+    boxSizing: 'border-box'
+    '-webkit-font-smoothing': 'antialiased'
+    '-moz-osx-font-smoothing': 'grayscale'
+
+  whithOutEdit:
+    padding: '16px 16px 16px 60px'
+    border: 'none'
+    background: 'rgba(0, 0, 0, 0.003)'
+    boxShadow: 'inset 0 -2px 1px rgba(0,0,0,0.03)'
 
 TodoTextInput = cfx
 
@@ -30,9 +56,8 @@ TodoTextInput = cfx
   render: (props, state) ->
     input
       className: c(
-        classnames
-          edit: @props.editing
-          'new-todo': @props.newTodo
+        do -> styles.whithOutEdit unless props.edit
+        do -> styles.newTodo if props.newTodo
         do -> props.styles.input if props.styles?.input?
       )
       type: 'text'

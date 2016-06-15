@@ -22,8 +22,6 @@ constants = require '../constants/index.coffee'
   SHOW_TODO_COMPLETED
 } = constants.types
 
-console.log constants
-
 FILTER_TITLES =
   SHOW_TODO_ALL: 'All'
   SHOW_TODO_ACTIVE: 'Active'
