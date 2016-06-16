@@ -60,20 +60,25 @@ TodoTextInput = cfx
   render: (props, state) ->
     input
       className: c(
+
         classnames
           edit: @props.editing
           'new-todo': @props.newTodo
+
         do ->
           if props.editing
             styles.edit
           else if props.newTodo
             styles.newTodo
+
         do -> props.styles.input if props.styles?.input?
       )
+
       type: 'text'
       placeholder: @props.placeholder
       autoFocus: 'true'
       value: @state.text
+
       onBlur: @handleBlur.bind @
       onChange: @handleChange.bind @
       onKeyDown: @handleSubmit.bind @

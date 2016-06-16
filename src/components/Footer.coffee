@@ -55,6 +55,37 @@ styles = Styl
   	    0 17px 2px -6px rgba(0, 0, 0, 0.2)
       """
 
+  todoCounter:
+    float: 'left'
+    textAlign: 'left'
+
+  todoCounter_strong:
+    fontWeight: 300
+
+  filters:
+    margin: 0
+    padding: 0
+    listStyle: 'none'
+    position: 'absolute'
+    right: 0
+    left: 0
+
+  filter:
+    display: 'inline'
+
+  filter_link:
+    color: 'inherit'
+    margin: '3px'
+    padding: '3px 7px'
+    textDecoration: 'none'
+    border: '1px solid transparent'
+    borderRadius: '3px'
+    ':hover':
+      borderColor: 'rgba(175, 47, 47, 0.1)'
+
+  filter_selected:
+    borderColor: 'rgba(175, 47, 47, 0.1)'
+
 Footer = cfx
 
   renderTodoCount: (props, state) ->
@@ -66,9 +97,9 @@ Footer = cfx
       then 'item'
       else 'items'
 
-    span className: 'todo-count'
+    span className: styles.todoCounter
     ,
-      strong {}
+      strong className: styles.todoCounter_strong
       , activeCount or 'No'
     , " #{itemWord} left"
 
@@ -80,11 +111,14 @@ Footer = cfx
       onShow
     } = @props
 
-    li key: filter
+    li
+      key: filter
+      className: styles.filter
     ,
       a
-        className: classnames(
-          selected: filter is selectedFilter
+        className: c(
+          do -> styles.filter_selected if filter is selectedFilter
+          styles.filter_link
         )
         style:
           cursor: 'pointer'
@@ -113,7 +147,7 @@ Footer = cfx
     )
     , @renderTodoCount()
     ,
-      ul className: 'filters'
+      ul className: styles.filters
       ,
         for filter in [
           SHOW_TODO_ALL
