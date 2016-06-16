@@ -70,7 +70,7 @@ TodoTextInput = cfx
 
 TodoTextInput.propTypes =
   onSave: PropTypes.func.isRequired
-  # style: PropTypes.object.isRequired
+  styles: PropTypes.object.isRequired
   text: PropTypes.string
   placeholder: PropTypes.string
   editing: PropTypes.bool

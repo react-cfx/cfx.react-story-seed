@@ -4,6 +4,8 @@
   cfx
   Comps
   connect
+  c
+  Styl
 } = require 'cfx.rw'
 {
   input
@@ -22,6 +24,31 @@ TODO_FILTERS =
   SHOW_TODO_ALL: -> true
   SHOW_TODO_ACTIVE: (todo) -> not todo.completed
   SHOW_TODO_COMPLETED: (todo) -> todo.completed
+
+styles = Styl
+
+  main:
+    position: 'relative'
+    zIndex: 2
+    borderTop: '1px solid #e6e6e6'
+
+  toggleAll:
+    position: 'absolute'
+    top: '-55px'
+    left: '-12px'
+    width: '60px'
+    height: '34px'
+    textAlign: 'center'
+    border: 'none'
+
+    ':before':
+      # content: '❯'
+      fontSize: '22px'
+      color: '#e6e6e6'
+
+    ':checked':
+      ':before':
+        color: '#737373'
 
 MainSection = (TodoItem, Footer) -> cfx
 
@@ -125,7 +152,10 @@ MainSection = (TodoItem, Footer) -> cfx
     if todos.length > 0
 
       input
-        className: 'toggle-all'
+        className: c(
+          'toggle-all'
+          styles.toggleAll
+        )
         type: 'checkbox'
         # checked: completedCount is todos.length
         onChange: @toggleAll
@@ -153,7 +183,7 @@ MainSection = (TodoItem, Footer) -> cfx
 
     filteredTodos = todos.filter TODO_FILTERS[filter]
 
-    section className: 'main'
+    section className: styles.main
     ,
       @renderToggleAll()
     ,
