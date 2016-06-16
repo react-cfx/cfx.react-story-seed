@@ -57,7 +57,7 @@ TodoTextInput = cfx
     input
       className: c(
         do -> styles.whithOutEdit unless props.edit
-        do -> styles.newTodo if props.newTodo
+        do -> styles.newTodo
         do -> props.styles.input if props.styles?.input?
       )
       type: 'text'

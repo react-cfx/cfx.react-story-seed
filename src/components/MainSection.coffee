@@ -50,6 +50,11 @@ styles = Styl
       ':before':
         color: '#737373'
 
+  todoList:
+    margin: 0
+    padding: 0
+    listStyle: 'none'
+
 MainSection = (TodoItem, Footer) -> cfx
 
   _getCount: (newProps, oldProps, state) ->
@@ -187,7 +192,10 @@ MainSection = (TodoItem, Footer) -> cfx
     ,
       @renderToggleAll()
     ,
-      ul className: 'todo-list'
+      ul className: c(
+        'todo-list'
+        styles.todoList
+      )
       ,
         for todo in filteredTodos
           TodoItem

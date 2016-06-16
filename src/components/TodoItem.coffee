@@ -4,6 +4,8 @@
   cfx
   Comps
   connect
+  c
+  Styl
 } = require 'cfx.rw'
 
 {
@@ -13,6 +15,54 @@
   button
   li
 } = Comps
+
+styles = Styl
+
+  todo:
+    position: 'relative'
+    fontSize: '24px'
+    borderBottom: '1px solid #ededed'
+
+  toggle:
+    textAlign: 'center'
+    width: '40px'
+    height: 'auto'
+    position: 'absolute'
+    top: 0
+    bottom: 0
+    margin: 'auto 0'
+    border: 'none'
+    '-webkit-appearance': 'none'
+    appearance: 'none'
+
+  uncompleted:
+    wordBreak: 'break-all'
+    padding: '15px 60px 15px 15px'
+    marginLeft: '45px'
+    display: 'block'
+    lineHeight: 1.2
+    transition: 'color 0.4s'
+
+  completed:
+    color: '#d9d9d9'
+    textDecoration: 'line-through'
+
+  destroy:
+    display: 'none'
+    position: 'absolute'
+    top: 0
+    right: '10px'
+    bottom: 0
+    width: '40px'
+    height: '40px'
+    margin: 'auto 0'
+    fontSize: '30px'
+    color: '#cc9a9a'
+    marginBottom: '11px'
+    transition: 'color 0.2s ease-out'
+
+    ':hover':
+      color: '#af5b5e'
 
 TodoItem = (TodoTextInput) -> cfx
 
@@ -62,7 +112,10 @@ TodoItem = (TodoTextInput) -> cfx
         div className: 'view'
         ,
           input
-            className: 'toggle'
+            className: c(
+              'toggle'
+              styles.toggle
+            )
             type: 'checkbox'
             checked: todo.completed
             onChange: -> modifyTodoState
@@ -71,19 +124,29 @@ TodoItem = (TodoTextInput) -> cfx
                 completed: not todo.completed
         ,
           label
+            className: c(
+              styles.uncompleted
+              do -> styles.completed if todo.completed
+            )
             onDoubleClick: @handleDoubleClick.bind @
           , todo.text
         ,
           button
-            className: 'destroy'
+            className: c(
+              'destroy'
+              styles.destroy
+            )
             onClick: -> removeTodoState
               todoId: todo.id
       )
 
     li
-      className: classnames
-        completed: todo.completed
-        editing: @state.editing
+      className: c(
+        classnames
+          completed: todo.completed
+          editing: @state.editing
+        styles.todo
+      )
     , element
 
 TodoItem.propTypes =
