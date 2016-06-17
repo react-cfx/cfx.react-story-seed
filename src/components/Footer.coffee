@@ -86,6 +86,16 @@ styles = Styl
   filter_selected:
     borderColor: 'rgba(175, 47, 47, 0.1)'
 
+  clearCompleted:
+    float: 'right'
+    position: 'relative'
+    lineHeight: '20px'
+    textDecoration: 'none'
+    cursor: 'pointer'
+
+    ':hover':
+      textDecoration: 'underline'
+
 Footer = cfx
 
   renderTodoCount: (props, state) ->
@@ -135,7 +145,7 @@ Footer = cfx
     if completedCount > 0
 
       button
-        className: 'clear-completed'
+        className: styles.clearCompleted
         onClick: -> clearCompleted()
       , 'Clear completed'
 
