@@ -23,6 +23,16 @@ styles = Styl
     fontSize: '24px'
     borderBottom: '1px solid #ededed'
 
+    ':last-child':
+      borderBottom: 'none'
+
+  todo_editing:
+    borderBottom: 'none'
+    padding: 0
+
+    ':last-child':
+      marginBottom: '-1px'
+
   toggle:
     textAlign: 'center'
     width: '40px'
@@ -104,12 +114,13 @@ TodoItem = (TodoTextInput) -> cfx
       if @state.editing
       then (
         TodoTextInput
+          todoList: true
           text: todo.text
           editing: @state.editing
           onSave: @handleSave.bind @, todo.id, todo.text
       )
       else (
-        div className: 'view'
+        div {}
         ,
           input
             className: c(
@@ -146,6 +157,10 @@ TodoItem = (TodoTextInput) -> cfx
           completed: todo.completed
           editing: @state.editing
         styles.todo
+        ( ->
+          if @state.editing
+            styles.todo_editing
+        ).call @
       )
     , element
 

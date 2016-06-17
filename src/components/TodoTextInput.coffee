@@ -37,6 +37,12 @@ styles = Styl do ->
 
   edit: inputBase
 
+  edit_todoList:
+    display: 'block'
+    width: '506px'
+    padding: '12px 16px'
+    margin: '0 0 0 43px'
+
 TodoTextInput = cfx
 
   constructor: (props, state) ->
@@ -72,6 +78,10 @@ TodoTextInput = cfx
             styles.newTodo
 
         do -> props.styles.input if props.styles?.input?
+
+        do ->
+          if props.editing and props.todoList
+            styles.edit_todoList
       )
 
       type: 'text'
