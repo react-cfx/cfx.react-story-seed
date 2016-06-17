@@ -55,6 +55,9 @@ styles = Styl
   	    0 17px 2px -6px rgba(0, 0, 0, 0.2)
       """
 
+    # '@media (max-width: 430px)':
+    #   height: '50px'
+
   todoCounter:
     float: 'left'
     textAlign: 'left'
@@ -69,6 +72,9 @@ styles = Styl
     position: 'absolute'
     right: 0
     left: 0
+
+    # '@media (max-width: 430px)':
+    #   bottom: '10px'
 
   filter:
     display: 'inline'
