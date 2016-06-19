@@ -1,10 +1,11 @@
 {
   PropTypes
-  classnames
   cfx
   Comps
   connect
+  Styl
 } = require 'cfx.rw'
+{ classnames } = Styl
 {
   span
   footer
@@ -21,8 +22,6 @@ constants = require '../constants/index.coffee'
   SHOW_TODO_ACTIVE
   SHOW_TODO_COMPLETED
 } = constants.types
-
-console.log constants
 
 FILTER_TITLES =
   SHOW_TODO_ALL: 'All'

@@ -1,4 +1,3 @@
-echo = -> console.log arguments[0]
 {
   cfx
   Comps

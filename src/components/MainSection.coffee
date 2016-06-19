@@ -1,10 +1,11 @@
 {
   PropTypes
-  classnames
   cfx
   Comps
   connect
+  Styl
 } = require 'cfx.rw'
+{ classnames } = Styl
 {
   input
   section

@@ -1,6 +1,5 @@
 {
   PropTypes
-  classnames
   cfx
   Comps
   Styl

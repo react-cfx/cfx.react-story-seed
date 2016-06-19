@@ -5,12 +5,15 @@ require './style.styl'
 TodoApp = require './App/index.coffee'
 
 {
-  Presets
-  LookRoot
+  Styl
   cfxify
 } = require 'cfx.rw'
 
-LookRoot = cfxify LookRoot
+{
+  Presets
+  LookRoot
+} = Styl
+
 config = Presets['react-dom']
 
 render (

@@ -1,9 +1,10 @@
+{ Styl } = require 'cfx.rw'
+
 {
   Presets
   LookRoot
-  cfxify
-} = require 'cfx.rw'
-LookRoot = cfxify LookRoot
+} = Styl
+
 config = Presets['react-dom']
 
 lookRootWapper = (getComponent) -> ->

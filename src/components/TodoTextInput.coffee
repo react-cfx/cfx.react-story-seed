@@ -1,10 +1,13 @@
 {
   PropTypes
-  classnames
   cfx
   Comps
-  c
+  Styl
 } = require 'cfx.rw'
+{
+  classnames
+  c
+} = Styl
 { input } = Comps
 
 TodoTextInput = cfx

@@ -17,18 +17,19 @@
     "storybook:start": "start-storybook -p 9001",
     "storybook:restart": "npm run storybook:clean; npm run storybook:conf; npm run storybook:start",
     "storybook:demo": "harp server static",
-    "storybook:require": "rimraf -rf node_modules/cfx.rw/; npm i; npm run storybook:restart",
-    "dev": "webpack-dev-server --inline --hot --content-base dist --config webpack/dev.conf.coffee"
+    "storybook:require": "rimraf -rf node_modules/cfx.rw; npm i; npm run storybook:restart",
+    "start": "webpack-dev-server --inline --hot --content-base dist --config webpack/dev.conf.coffee",
+    "restart": "rimraf -rf ./node_modules/cfx.rw; npm i; npm start"
   },
   "_dependencies": {
-    "cfx.rw": "../cfx.rw",
+    "cfx.rw": "git+https://github.com/react-cfx/cfx.rw.git",
     "cfx.example-cfx-redux-todo": "../example-cfx-redux-todo"
   },
   "dependencies": {
     "cfx.example-cfx-redux-todo": "git+https://github.com/react-cfx/example-cfx-redux-todo.git",
     "cfx.redux": "git+https://github.com/react-cfx/cfx.redux.git",
     "cfx.redux-types": "git+https://github.com/react-cfx/cfx.redux-types.git",
-    "cfx.rw": "git+https://github.com/react-cfx/cfx.rw.git",
+    "cfx.rw": "../cfx.rw",
     "classnames": "^2.2.5",
     "radium": "^0.17.1",
     "react": "^15.1.0",
