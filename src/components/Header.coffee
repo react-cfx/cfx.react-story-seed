@@ -12,10 +12,12 @@
 
 { initial } = require '../initials/index.coffee'
 
-styles = Styl
+styles =
 
   appTitle: do ->
+
     textRendering = 'optimizeLegibility'
+
     position: 'absolute'
     top: '-155px'
     width: '100%'
@@ -28,10 +30,12 @@ styles = Styl
     TextRendering: textRendering
 
   addTodo: do ->
+
     inputPlaceholder =
       fontStyle: 'italic'
       fontWeight: 300
       color: '#e6e6e6'
+
     '::-webkit-input-placeholder': inputPlaceholder
     '::-moz-placeholder': inputPlaceholder
     '::input-placeholder': inputPlaceholder
@@ -49,11 +53,13 @@ Header = (TodoTextInput) -> cfx
 
     header className: 'header'
     ,
-      h1 className: styles.appTitle
+      h1
+        style: Styl styles.appTitle
       , 'todos'
     ,
       TodoTextInput
-        styles: input: styles.addTodo
+        styles:
+          input: styles.addTodo
         newTodo: true
         onSave: @handleSave.bind @
         placeholder: 'What needs to be done?'

@@ -4,10 +4,7 @@ require './style.styl'
 { render } = require 'react-dom'
 TodoApp = require './App/index.coffee'
 
-{
-  Styl
-  cfxify
-} = require 'cfx.rw'
+{ Styl } = require 'cfx.rw'
 
 {
   Presets

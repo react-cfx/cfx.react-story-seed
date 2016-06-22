@@ -1,10 +1,7 @@
 { Comps } = require 'cfx.rw'
 { div } = Comps
 { wapper } = require './storyHelper.coffee'
-
-{
-  Header
-} = require './components.coffee'
+{ Header } = require './components.coffee'
 
 {
   storiesOf
