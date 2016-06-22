@@ -10,6 +10,45 @@
 } = Styl
 { input } = Comps
 
+styles =
+
+  input: (propsStyle) ->
+    return unless propsStyle or propsStyle.input
+    propsStyle.input
+
+  newTodo: (newTodo, editing) ->
+
+    return unless newTodo
+
+    base =
+      position: 'relative'
+      margin: 0
+      width: '100%'
+      fontSize: '24px'
+      fontFamily: 'inherit'
+      fontWeight: 'inherit'
+      lineHeight: '1.4em'
+      border: 0
+      color: 'inherit'
+      padding: '6px'
+      border: '1px solid #999'
+      boxShadow: 'inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2)'
+      boxSizing: 'border-box'
+      WebkitFontSmoothing: 'antialiased'
+      MozOsxFontSmoothing: 'grayscale'
+
+    withoutEdit =
+      padding: '16px 16px 16px 60px'
+      border: 'none'
+      background: 'rgba(0, 0, 0, 0.003)'
+      boxShadow: 'inset 0 -2px 1px rgba(0,0,0,0.03)'
+
+    unless editing
+      Object.assign {}
+      , base
+      , withoutEdit
+    else base
+
 TodoTextInput = cfx
 
   constructor: (props, state) ->
@@ -31,8 +70,13 @@ TodoTextInput = cfx
     @props.onSave e.target.value unless @props.newTodo
 
   render: (props, state) ->
+
     input
-      style: do -> Styl props.styles.input if props.styles?.input?
+
+      style: [
+        Styl styles.input props.styles
+        # Styl styles.newTodo props.newTodo, props.editing
+      ]
       className: classnames
         edit: @props.editing
         'new-todo': @props.newTodo
@@ -45,8 +89,9 @@ TodoTextInput = cfx
       onKeyDown: @handleSubmit.bind @
 
 TodoTextInput.propTypes =
+
   onSave: PropTypes.func.isRequired
-  # style: PropTypes.object.isRequired
+  styles: PropTypes.object.isRequired
   text: PropTypes.string
   placeholder: PropTypes.string
   editing: PropTypes.bool
