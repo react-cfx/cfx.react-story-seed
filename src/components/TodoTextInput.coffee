@@ -12,13 +12,11 @@
 
 styles =
 
-  input: (propsStyle) ->
-    return unless propsStyle or propsStyle.input
+  header: (propsStyle) ->
+    return unless propsStyle?.input
     propsStyle.input
 
   newTodo: (newTodo, editing) ->
-
-    return unless newTodo
 
     base =
       position: 'relative'
@@ -43,11 +41,15 @@ styles =
       background: 'rgba(0, 0, 0, 0.003)'
       boxShadow: 'inset 0 -2px 1px rgba(0,0,0,0.03)'
 
-    unless editing
+    if not newTodo and editing
+
+      base
+
+    else
+
       Object.assign {}
       , base
       , withoutEdit
-    else base
 
 TodoTextInput = cfx
 
@@ -72,14 +74,13 @@ TodoTextInput = cfx
   render: (props, state) ->
 
     input
-
-      style: [
-        Styl styles.input props.styles
-        # Styl styles.newTodo props.newTodo, props.editing
-      ]
       className: classnames
         edit: @props.editing
         'new-todo': @props.newTodo
+      style: [
+        Styl styles.header props.styles
+        Styl styles.newTodo props.newTodo, props.editing
+      ]
       type: 'text'
       placeholder: @props.placeholder
       autoFocus: 'true'
