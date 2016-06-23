@@ -24,6 +24,27 @@ TODO_FILTERS =
   SHOW_TODO_ACTIVE: (todo) -> not todo.completed
   SHOW_TODO_COMPLETED: (todo) -> todo.completed
 
+styles =
+
+  toggleAll: (isChecked) ->
+
+    position: 'absolute'
+    top: '-55px'
+    left: '-12px'
+    width: '60px'
+    height: '34px'
+    textAlign: 'center'
+    border: 'none'
+
+    before:
+      content: '❯'
+      fontSize: '22px'
+      color:
+        unless isChecked
+        then '#e6e6e6'
+        else '#737373'
+      padding: '10px 27px 10px 27px'
+
 MainSection = (TodoItem, Footer) -> cfx
 
   _getCount: (newProps, oldProps, state) ->
@@ -70,6 +91,7 @@ MainSection = (TodoItem, Footer) -> cfx
       activeCount
       completedCount
       filter: SHOW_TODO_ALL
+      isToggleAll: false
     }
 
   componentWillReceiveProps: (nextProps) ->
@@ -77,11 +99,14 @@ MainSection = (TodoItem, Footer) -> cfx
       activeCount
       completedCount
     } = @_getCount nextProps
-    @setState Object.assign {}
-    , @state
-    , {
+
+    @setState {
       activeCount
       completedCount
+      isToggleAll:
+        if activeCount is 0
+        then true
+        else false
     }
 
   handleClearCompleted: (props, state) ->
@@ -92,8 +117,7 @@ MainSection = (TodoItem, Footer) -> cfx
         removeTodoState
           todoId: todo.id
 
-  handleShow: (filter) ->
-    @setState {filter}
+  handleShow: (filter) -> @setState {filter}
 
   toggleAll: (e, props, state) ->
     { todos } = state
@@ -121,14 +145,14 @@ MainSection = (TodoItem, Footer) -> cfx
 
   renderToggleAll: (props, state) ->
     { todos } = state
-    # { completedCount } = @state
 
     if todos.length > 0
 
       input
         className: 'toggle-all'
+        style: Styl styles.toggleAll @state.isToggleAll
         type: 'checkbox'
-        # checked: completedCount is todos.length
+        checked: @state.isToggleAll
         onChange: @toggleAll
 
   renderFooter: (props, state) ->

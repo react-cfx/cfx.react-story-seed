@@ -29,16 +29,12 @@ styles =
     MozTextRendering: textRendering
     TextRendering: textRendering
 
-  addTodo: do ->
+  addTodo:
 
-    inputPlaceholder =
+    inputPlaceholder:
       fontStyle: 'italic'
       fontWeight: 300
       color: '#e6e6e6'
-
-    '::-webkit-input-placeholder': inputPlaceholder
-    '::-moz-placeholder': inputPlaceholder
-    '::input-placeholder': inputPlaceholder
 
 Header = (TodoTextInput) -> cfx
 
