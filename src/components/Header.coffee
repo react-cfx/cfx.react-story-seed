@@ -47,10 +47,10 @@ Header = (TodoTextInput) -> cfx
 
   render: ->
 
-    header className: 'header'
+    header {}
     ,
       h1
-        style: Styl styles.appTitle
+        style: styles.appTitle
       , 'todos'
     ,
       TodoTextInput

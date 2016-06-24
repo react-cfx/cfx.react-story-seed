@@ -14,6 +14,24 @@
   li
 } = Comps
 
+styles =
+
+  todo: (editing) ->
+
+    base =
+      position: 'relative'
+      fontSize: '24px'
+      borderBottom: '1px solid #ededed'
+
+    unless editing
+    then base
+    else
+      Object.assign {}
+      , base
+      ,
+        borderBottom: 'none'
+        padding: 0
+
 TodoItem = (TodoTextInput) -> cfx
 
   constructor: (props, context) ->
@@ -84,6 +102,7 @@ TodoItem = (TodoTextInput) -> cfx
       className: classnames
         completed: todo.completed
         editing: @state.editing
+      style: styles.todo @state.editing
     , element
 
 TodoItem.propTypes =
