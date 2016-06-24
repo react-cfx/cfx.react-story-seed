@@ -77,8 +77,7 @@ styles =
       color: '#d9d9d9'
       textDecoration: 'line-through'
 
-  destroy:
-    # display: 'none'
+  destroy: (isHover) ->
     position: 'absolute'
     top: 0
     right: '10px'
@@ -87,19 +86,30 @@ styles =
     height: '40px'
     margin: 'auto 0 11px'
     fontSize: '30px'
-    color: '#cc9a9a'
+    color:
+      unless isHover
+      then '#cc9a9a'
+      else '#af5b5e'
     transition: 'color 0.2s ease-out'
 
-    hover:
-      color: '#af5b5e'
-
-    # after:
-    #   content: '×'
+    after:
+      content: '×'
 
 TodoItem = (TodoTextInput) -> cfx
 
   constructor: (props, context) ->
-    @state = editing: false
+    @state =
+      editing: false
+      hover:
+        todoWrapper:
+          over_out: false
+          enter_leave: false
+        todo:
+          over_out: false
+          enter_leave: false
+        destroy:
+          over_out: false
+          enter_leave: false
 
   handleDoubleClick: ->
     @setState editing: true
@@ -125,6 +135,44 @@ TodoItem = (TodoTextInput) -> cfx
 
     @state = editing: false
 
+  getHover: (stateHover, hoverKey, action) ->
+    hover = Object.assign {}, stateHover, {}
+    switch action
+      when 'over'
+      then hover[hoverKey].over_out = true
+      when 'out'
+      then hover[hoverKey].over_out = false
+      when 'enter'
+      then hover[hoverKey].enter_leave = true
+      when 'leave'
+      then hover[hoverKey].enter_leave = false
+      else return
+    hover
+
+  mouseEnter: (hoverKey, dispatch, undefine, e, props) ->
+    e.stopPropagation()
+    hover = @getHover @state.hover
+    , hoverKey, 'enter'
+    @setState { hover }
+
+  mouseLeave: (hoverKey, dispatch, undefine, e, props) ->
+    e.stopPropagation()
+    hover = @getHover @state.hover
+    , hoverKey, 'leave'
+    @setState { hover }
+
+  mouseOver: (hoverKey, dispatch, undefine, e, props) ->
+    e.stopPropagation()
+    hover = @getHover @state.hover
+    , hoverKey, 'over'
+    @setState { hover }
+
+  mouseOut: (hoverKey, dispatch, undefine, e, props) ->
+    e.stopPropagation()
+    hover = @getHover @state.hover
+    , hoverKey, 'out'
+    @setState { hover }
+
   render: (props, state) ->
     {
       todo
@@ -145,7 +193,12 @@ TodoItem = (TodoTextInput) -> cfx
           onSave: @handleSave.bind @, todo.id, todo.text
       )
       else (
-        div className: 'view'
+        div
+          className: 'view'
+          onMouseEnter: @mouseEnter.bind @, 'todoWrapper'
+          onMouseLeave: @mouseLeave.bind @, 'todoWrapper'
+          onMouseOver: @mouseOver.bind @, 'todoWrapper'
+          onMouseOut: @mouseOut.bind @, 'todoWrapper'
         ,
           input
             className: 'toggle'
@@ -160,20 +213,41 @@ TodoItem = (TodoTextInput) -> cfx
           label
             onDoubleClick: @handleDoubleClick.bind @
             style: styles.todoContent todo.completed
+            onMouseEnter: @mouseEnter.bind @, 'todo'
+            onMouseLeave: @mouseLeave.bind @, 'todo'
+            onMouseOver: @mouseOver.bind @, 'todo'
+            onMouseOut: @mouseOut.bind @, 'todo'
           , todo.text
         ,
-          button
-            className: 'destroy'
-            style: Styl styles.destroy
-            onClick: -> removeTodoState
-              todoId: todo.id
+          ( ->
+            # console.log 'todoWrapper'
+            # console.log @state.hover.todoWrapper
+            # console.log 'todo'
+            # console.log @state.hover.todo
+            # console.log 'destroy'
+            # console.log @state.hover.destroy
+            if (
+              @state.hover.todoWrapper.enter_leave
+            ) and (
+              @state.hover.todo.enter_leave or
+              @state.hover.destroy.enter_leave
+            )
+              button
+                className: 'destroy'
+                style: Styl styles.destroy @state.hover.destroy.enter_leave
+                onClick: -> removeTodoState
+                  todoId: todo.id
+                onMouseEnter: @mouseEnter.bind @, 'destroy'
+                onMouseLeave: @mouseLeave.bind @, 'destroy'
+                onMouseOver: @mouseOver.bind @, 'destroy'
+                onMouseOut: @mouseOut.bind @, 'destroy'
+          ).call @
       )
 
     li
       className: classnames
         completed: todo.completed
         editing: @state.editing
-      hover: -> console.log 'hover'
       style: styles.todo @state.editing
       , atLast
     , element
