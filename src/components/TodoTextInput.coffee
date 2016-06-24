@@ -43,7 +43,13 @@ styles =
 
     if not newTodo and editing
 
-      base
+      Object.assign {}
+      , base
+      ,
+        display: 'block'
+        width: '506px'
+        padding: '12px 16px'
+        margin: '0 0 0 43px'
 
     else
 
