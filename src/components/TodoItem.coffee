@@ -60,6 +60,42 @@ styles =
           url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='-10 -18 100 135'><circle cx='50' cy='50' r='50' fill='none' stroke='#bddad5' stroke-width='3'/><path fill='#5dc2af' d='M72 25L42 71 27 56l-4 4 20 20 34-52z'/></svg>\")
         """
 
+  todoContent: (isCompleted) ->
+    base =
+      wordBreak: 'break-all'
+      padding: '15px 60px 15px 15px'
+      marginLeft: '45px'
+      display: 'block'
+      lineHeight: 1.2
+      transition: 'color 0.4s'
+
+    unless isCompleted
+    then base
+    else Object.assign {}
+    , base
+    ,
+      color: '#d9d9d9'
+      textDecoration: 'line-through'
+
+  destroy:
+    # display: 'none'
+    position: 'absolute'
+    top: 0
+    right: '10px'
+    bottom: 0
+    width: '40px'
+    height: '40px'
+    margin: 'auto 0 11px'
+    fontSize: '30px'
+    color: '#cc9a9a'
+    transition: 'color 0.2s ease-out'
+
+    hover:
+      color: '#af5b5e'
+
+    # after:
+    #   content: '×'
+
 TodoItem = (TodoTextInput) -> cfx
 
   constructor: (props, context) ->
@@ -123,10 +159,12 @@ TodoItem = (TodoTextInput) -> cfx
         ,
           label
             onDoubleClick: @handleDoubleClick.bind @
+            style: styles.todoContent todo.completed
           , todo.text
         ,
           button
             className: 'destroy'
+            style: Styl styles.destroy
             onClick: -> removeTodoState
               todoId: todo.id
       )
@@ -135,6 +173,7 @@ TodoItem = (TodoTextInput) -> cfx
       className: classnames
         completed: todo.completed
         editing: @state.editing
+      hover: -> console.log 'hover'
       style: styles.todo @state.editing
       , atLast
     , element
