@@ -16,12 +16,15 @@
 
 styles =
 
-  todo: (editing) ->
+  todo: (editing, atLast) ->
 
     base =
       position: 'relative'
       fontSize: '24px'
-      borderBottom: '1px solid #ededed'
+      borderBottom:
+        if atLast
+        then 'none'
+        else '1px solid #ededed'
 
     unless editing
     then base
@@ -31,6 +34,8 @@ styles =
       ,
         borderBottom: 'none'
         padding: 0
+      ,
+        marginBottom: '-1px' if atLast
 
 TodoItem = (TodoTextInput) -> cfx
 
@@ -62,7 +67,11 @@ TodoItem = (TodoTextInput) -> cfx
     @state = editing: false
 
   render: (props, state) ->
-    { todo } = props
+    {
+      todo
+      atLast
+    } = props
+
     {
       modifyTodoState
       removeTodoState
@@ -103,6 +112,7 @@ TodoItem = (TodoTextInput) -> cfx
         completed: todo.completed
         editing: @state.editing
       style: styles.todo @state.editing
+      , atLast
     , element
 
 TodoItem.propTypes =

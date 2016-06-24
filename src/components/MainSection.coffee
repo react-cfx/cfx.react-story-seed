@@ -184,10 +184,11 @@ MainSection = (TodoItem, Footer) -> cfx
     ,
       ul className: 'todo-list'
       ,
-        for todo in filteredTodos
+        for index, todo of filteredTodos
           TodoItem
             key: todo.id
             todo: todo
+            atLast: (~~index + 1) is filteredTodos.length
     , @renderFooter()
 
 module.exports = MainSection
