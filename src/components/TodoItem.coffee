@@ -102,13 +102,10 @@ TodoItem = (TodoTextInput) -> cfx
       editing: false
       hover:
         todoWrapper:
-          over_out: false
           enter_leave: false
         todo:
-          over_out: false
           enter_leave: false
         destroy:
-          over_out: false
           enter_leave: false
 
   handleDoubleClick: ->
@@ -133,15 +130,11 @@ TodoItem = (TodoTextInput) -> cfx
       removeTodoState
         todoId: id
 
-    @state = editing: false
+    @setState editing: false
 
   getHover: (stateHover, hoverKey, action) ->
     hover = Object.assign {}, stateHover, {}
     switch action
-      when 'over'
-      then hover[hoverKey].over_out = true
-      when 'out'
-      then hover[hoverKey].over_out = false
       when 'enter'
       then hover[hoverKey].enter_leave = true
       when 'leave'
@@ -159,18 +152,6 @@ TodoItem = (TodoTextInput) -> cfx
     e.stopPropagation()
     hover = @getHover @state.hover
     , hoverKey, 'leave'
-    @setState { hover }
-
-  mouseOver: (hoverKey, dispatch, undefine, e, props) ->
-    e.stopPropagation()
-    hover = @getHover @state.hover
-    , hoverKey, 'over'
-    @setState { hover }
-
-  mouseOut: (hoverKey, dispatch, undefine, e, props) ->
-    e.stopPropagation()
-    hover = @getHover @state.hover
-    , hoverKey, 'out'
     @setState { hover }
 
   render: (props, state) ->
@@ -197,8 +178,6 @@ TodoItem = (TodoTextInput) -> cfx
           className: 'view'
           onMouseEnter: @mouseEnter.bind @, 'todoWrapper'
           onMouseLeave: @mouseLeave.bind @, 'todoWrapper'
-          onMouseOver: @mouseOver.bind @, 'todoWrapper'
-          onMouseOut: @mouseOut.bind @, 'todoWrapper'
         ,
           input
             className: 'toggle'
@@ -215,17 +194,9 @@ TodoItem = (TodoTextInput) -> cfx
             style: styles.todoContent todo.completed
             onMouseEnter: @mouseEnter.bind @, 'todo'
             onMouseLeave: @mouseLeave.bind @, 'todo'
-            onMouseOver: @mouseOver.bind @, 'todo'
-            onMouseOut: @mouseOut.bind @, 'todo'
           , todo.text
         ,
           ( ->
-            # console.log 'todoWrapper'
-            # console.log @state.hover.todoWrapper
-            # console.log 'todo'
-            # console.log @state.hover.todo
-            # console.log 'destroy'
-            # console.log @state.hover.destroy
             if (
               @state.hover.todoWrapper.enter_leave
             ) and (
@@ -239,8 +210,6 @@ TodoItem = (TodoTextInput) -> cfx
                   todoId: todo.id
                 onMouseEnter: @mouseEnter.bind @, 'destroy'
                 onMouseLeave: @mouseLeave.bind @, 'destroy'
-                onMouseOver: @mouseOver.bind @, 'destroy'
-                onMouseOut: @mouseOut.bind @, 'destroy'
           ).call @
       )
 
