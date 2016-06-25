@@ -101,12 +101,9 @@ TodoItem = (TodoTextInput) -> cfx
     @state =
       editing: false
       hover:
-        todoWrapper:
-          enter_leave: false
-        todo:
-          enter_leave: false
-        destroy:
-          enter_leave: false
+        todoWrapper: false
+        todo: false
+        destroy: false
 
   handleDoubleClick: ->
     @setState editing: true
@@ -132,26 +129,21 @@ TodoItem = (TodoTextInput) -> cfx
 
     @setState editing: false
 
-  getHover: (stateHover, hoverKey, action) ->
+  getHover: (stateHover, hoverKey, isHover) ->
     hover = Object.assign {}, stateHover, {}
-    switch action
-      when 'enter'
-      then hover[hoverKey].enter_leave = true
-      when 'leave'
-      then hover[hoverKey].enter_leave = false
-      else return
+    hover[hoverKey] = isHover
     hover
 
   mouseEnter: (hoverKey, dispatch, undefine, e, props) ->
     e.stopPropagation()
     hover = @getHover @state.hover
-    , hoverKey, 'enter'
+    , hoverKey, true
     @setState { hover }
 
   mouseLeave: (hoverKey, dispatch, undefine, e, props) ->
     e.stopPropagation()
     hover = @getHover @state.hover
-    , hoverKey, 'leave'
+    , hoverKey, false
     @setState { hover }
 
   render: (props, state) ->
@@ -197,11 +189,12 @@ TodoItem = (TodoTextInput) -> cfx
           , todo.text
         ,
           ( ->
+            console.log @state.hover
             if (
-              @state.hover.todoWrapper.enter_leave
+              @state.hover.todoWrapper
             ) and (
-              @state.hover.todo.enter_leave or
-              @state.hover.destroy.enter_leave
+              @state.hover.todo or
+              @state.hover.destroy
             )
               button
                 className: 'destroy'
