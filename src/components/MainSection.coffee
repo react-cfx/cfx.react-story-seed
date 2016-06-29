@@ -45,6 +45,11 @@ styles =
         else '#737373'
       padding: '10px 27px 10px 27px'
 
+  todoList:
+    margin: '0px'
+    padding: 0
+    listStyle: 'none'
+
 MainSection = (TodoItem, Footer) -> cfx
 
   _getCount: (newProps, oldProps, state) ->
@@ -182,7 +187,9 @@ MainSection = (TodoItem, Footer) -> cfx
     ,
       @renderToggleAll()
     ,
-      ul className: 'todo-list'
+      ul
+        className: 'todo-list'
+        style: styles.todoList
       ,
         for index, todo of filteredTodos
           TodoItem

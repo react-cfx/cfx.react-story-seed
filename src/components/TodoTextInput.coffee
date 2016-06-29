@@ -20,7 +20,7 @@ styles =
 
     base =
       position: 'relative'
-      margin: 0
+      margin: '0px'
       width: '100%'
       fontSize: '24px'
       fontFamily: 'inherit'

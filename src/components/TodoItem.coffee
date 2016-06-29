@@ -45,7 +45,7 @@ styles =
     position: 'absolute'
     top: 0
     bottom: 0
-    margin: 'auto 0'
+    margin: 'auto 0px'
     border: 'none'
     WebkitAppearance: 'none'
     appearance: 'none'
@@ -84,7 +84,7 @@ styles =
     bottom: 0
     width: '40px'
     height: '40px'
-    margin: 'auto 0 11px'
+    margin: 'auto 0px 11px'
     fontSize: '30px'
     color:
       unless isHover
