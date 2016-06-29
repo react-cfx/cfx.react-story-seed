@@ -84,12 +84,12 @@ styles =
     if isSeleted
       base = Object.assign {}, base
       ,
-        borderColor: 'rgba(175, 47, 47, 0.2)'
+        border: '1px solid rgba(175, 47, 47, 0.2)'
 
     Object.assign {}, base
     ,
       hover:
-        borderColor: 'rgba(175, 47, 47, 0.1)'
+        border: '1px solid rgba(175, 47, 47, 0.1)'
 
 Footer = cfx
 
